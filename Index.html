@@ -98,9 +98,7 @@
     // Carrega o arquivo biblia.txt
     fetch('biblia.txt')
       .then(response => response.text())
-      .then(data => {
-        bibliaTexto = data;
-      })
+      .then(data => { bibliaTexto = data; })
       .catch(err => {
         document.getElementById('resultado').innerText = 'Erro ao carregar o arquivo biblia.txt';
         console.error(err);
@@ -128,38 +126,46 @@
     }
 
     function ouvir() {
-      const selection = window.getSelection().toString().trim();
-      const textoTodo = document.getElementById('resultado').innerText;
-
+      const resultadoDiv = document.getElementById('resultado');
+      const textoTodo = resultadoDiv.innerText;
       if (!textoTodo || textoTodo === 'Nenhum resultado encontrado.' || textoTodo === 'Digite uma palavra ou versículo.') {
         alert('Não há texto para ouvir.');
         return;
       }
 
-      let textoParaLer = textoTodo;
-
-      if (selection) {
-        const lerSelecionado = confirm('Deseja ler apenas o texto selecionado?\nClique "OK" para ler selecionado ou "Cancelar" para ler todo o resultado.');
-        textoParaLer = lerSelecionado ? selection : textoTodo;
-      }
+      const lerSelecionado = confirm('Deseja ler apenas o texto selecionado?\nClique OK para ler selecionado ou Cancelar para ler todo o resultado.');
 
       const rate = parseFloat(document.getElementById('speed').value);
-      const utterance = new SpeechSynthesisUtterance(textoParaLer);
+      const utterance = new SpeechSynthesisUtterance();
       utterance.lang = 'pt-BR';
       utterance.rate = rate;
-      window.speechSynthesis.speak(utterance);
+
+      if (lerSelecionado) {
+        alert('Selecione o texto na caixa de resultados e clique novamente no botão "Ouvir o resultado".');
+        return;
+      } else {
+        utterance.text = textoTodo;
+        window.speechSynthesis.speak(utterance);
+      }
     }
 
-    function pausar() {
-      window.speechSynthesis.cancel();
-    }
+    // Função para ouvir seleção quando já houver texto selecionado
+    document.querySelector('.search-container button[onclick="ouvir()"]').addEventListener('click', () => {
+      const selection = window.getSelection().toString().trim();
+      if (selection) {
+        const rate = parseFloat(document.getElementById('speed').value);
+        const utterance = new SpeechSynthesisUtterance(selection);
+        utterance.lang = 'pt-BR';
+        utterance.rate = rate;
+        window.speechSynthesis.speak(utterance);
+      }
+    });
 
-    // Atualiza valor mostrado da velocidade
+    function pausar() { window.speechSynthesis.cancel(); }
+
     const speedInput = document.getElementById('speed');
     const speedValue = document.getElementById('speedValue');
-    speedInput.addEventListener('input', () => {
-      speedValue.innerText = speedInput.value + 'x';
-    });
+    speedInput.addEventListener('input', () => { speedValue.innerText = speedInput.value + 'x'; });
   </script>
 </body>
 </html>
