@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>KingCast</title>
+  <title>Explorar Pastas</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,31 +11,43 @@
       color: #fff;
     }
     img {
-      max-width: 300px;
-      margin: 20px auto;
-      display: block;
+      max-width: 200px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #000;
     }
-    iframe {
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       margin-top: 20px;
-      border-radius: 12px;
     }
   </style>
 </head>
 <body>
-  <h1>🎙️ KingCast</h1>
-  <h3>Transmitindo o Reino</h3>
+  <h1>📂 Visualizar Imagens da Pasta</h1>
+  <h3>Selecione uma pasta do seu computador</h3>
 
-  <!-- Imagem local -->
-  <img src="C:\Users\JoeldeSouzaRodrigues/Imagens/cast.png" alt="">
+  <!-- Input para escolher a pasta -->
+  <input type="file" webkitdirectory multiple />
 
-  <!-- Player Spotify -->
-  <iframe style="border-radius:12px" 
-    src="https://open.spotify.com/embed/episode/3aiXGdYmC6l7qnnDzEkbn0?utm_source=generator" 
-    width="100%" height="152" frameborder="0" 
-    allowfullscreen="" 
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-    loading="lazy"></iframe>
+  <div id="container"></div>
+
+  <script>
+    const input = document.querySelector('input[type="file"]');
+    const container = document.getElementById("container");
+
+    input.addEventListener("change", (event) => {
+      container.innerHTML = ""; // limpa antes
+      const files = event.target.files;
+      for (let file of files) {
+        if (file.type.startsWith("image/")) {
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(file);
+          container.appendChild(img);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
-
-
