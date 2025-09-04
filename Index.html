@@ -7,86 +7,30 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #A8D5BA; /* verde-água suave */
-      color: #000; /* fonte preta */
+      color: #000;
       text-align: center;
       margin: 0;
       padding: 20px;
     }
+    h1 { margin: 20px; color: #000; }
+    h2 { margin: 20px 0 10px 0; font-size: 1.5em; color: #000; }
+    ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 0; }
+    li { margin: 0; }
+    a { text-decoration: none; color: #000; font-size: 20px; }
+    a:hover { color: #333; }
+    img { max-width: 300px; margin: 20px auto; display: block; border-radius: 12px; }
 
-    h1 {
-      margin: 20px;
-      color: #000;
-    }
+    /* Pesquisa */
+    .search-container { margin-top: 40px; }
+    .search-container input[type="text"] { padding: 10px; width: 250px; border-radius: 8px; border: 1px solid #000; font-size: 16px; }
+    .search-container button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #000; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; margin-left: 10px; }
+    .search-container button:hover { background-color: #333; }
 
-    h2 {
-      margin: 20px 0 10px 0;
-      font-size: 1.5em;
-      color: #000;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;           
-      justify-content: center; 
-      gap: 30px;               
-      flex-wrap: wrap;         
-      margin: 0;
-    }
-
-    li {
-      margin: 0;
-    }
-
-    a {
-      text-decoration: none;
-      color: #000;
-      font-size: 20px;
-    }
-
-    a:hover {
-      color: #333;
-    }
-
-    img {
-      max-width: 300px;
-      margin: 20px auto;
-      display: block;
-      border-radius: 12px;
-    }
-
-    /* Estilo da barra de pesquisa */
-    .search-container {
-      margin-top: 40px;
-    }
-
-    .search-container input[type="text"] {
-      padding: 10px;
-      width: 250px;
-      border-radius: 8px;
-      border: 1px solid #000;
-      font-size: 16px;
-    }
-
-    .search-container button {
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: none;
-      background-color: #000;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
-    .search-container button:hover {
-      background-color: #333;
-    }
+    .search-result { margin-top: 30px; width: 90%; max-width: 900px; height: 500px; border: 2px solid #000; border-radius: 12px; padding: 10px; overflow-y: auto; background-color: #fff; color: #000; text-align: left; }
+    mark { background-color: yellow; font-weight: bold; }
   </style>
 </head>
 <body>
-  <!-- Imagem no topo -->
   <img src="cast.png" alt="Logo KingCast">
 
   <h1> 🎙️ </h1>
@@ -100,13 +44,50 @@
     <li><a href="Criação/index.html">🗣️ Criação</a></li>
   </ul>
 
-  <!-- Campo de pesquisa bíblica -->
+  <!-- Campo de pesquisa local -->
   <div class="search-container">
-    <form action="https://www.biblegateway.com/passage/" method="get" target="_blank">
-      <input type="text" name="search" placeholder="Pesquisar versículo ou palavra" required>
-      <input type="hidden" name="version" value="NVI"> <!-- versão da Bíblia -->
-      <button type="submit">Pesquisar</button>
-    </form>
+    <input type="text" id="searchInput" placeholder="Pesquisar palavra ou versículo">
+    <button onclick="buscar()">Pesquisar</button>
   </div>
+
+  <!-- Caixa de resultados -->
+  <div id="resultado" class="search-result"></div>
+
+  <script>
+    let bibliaTexto = '';
+
+    // Carrega o arquivo biblia.txt
+    fetch('biblia.txt')
+      .then(response => response.text())
+      .then(data => {
+        bibliaTexto = data;
+      })
+      .catch(err => {
+        document.getElementById('resultado').innerText = 'Erro ao carregar o arquivo biblia.txt';
+        console.error(err);
+      });
+
+    function buscar() {
+      const termo = document.getElementById('searchInput').value.toLowerCase();
+      const resultadoDiv = document.getElementById('resultado');
+
+      if (!termo) {
+        resultadoDiv.innerHTML = 'Digite uma palavra ou versículo.';
+        return;
+      }
+
+      const linhas = bibliaTexto.split('\n');
+      const resultados = linhas.filter(linha => linha.toLowerCase().includes(termo));
+
+      if (resultados.length > 0) {
+        // Destaca o termo pesquisado
+        const regex = new RegExp(`(${termo})`, 'gi');
+        const destacados = resultados.map(linha => linha.replace(regex, '<mark>$1</mark>'));
+        resultadoDiv.innerHTML = destacados.join('<br><br>');
+      } else {
+        resultadoDiv.innerHTML = 'Nenhum resultado encontrado.';
+      }
+    }
+  </script>
 </body>
 </html>
