@@ -44,6 +44,19 @@
     }
 
     mark { background-color: yellow; font-weight: bold; }
+
+    .speed-control {
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    .speed-control label {
+      margin-right: 10px;
+    }
+
+    .speed-control input[type="range"] {
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -65,6 +78,14 @@
     <input type="text" id="searchInput" placeholder="Digite palavra ou versículo">
     <button onclick="buscar()">Pesquise na Bíblia</button>
     <button onclick="ouvir()">Ouvir o resultado</button>
+    <button onclick="pausar()">⏸️ Pausar</button>
+
+    <!-- Controle de velocidade -->
+    <div class="speed-control">
+      <label for="speed">Velocidade da leitura:</label>
+      <input type="range" id="speed" min="0.5" max="2" value="1" step="0.1">
+      <span id="speedValue">1x</span>
+    </div>
   </div>
 
   <!-- Caixa de resultados -->
@@ -112,10 +133,24 @@
         return;
       }
 
+      const rate = parseFloat(document.getElementById('speed').value);
+
       const utterance = new SpeechSynthesisUtterance(texto);
       utterance.lang = 'pt-BR';
+      utterance.rate = rate; // define a velocidade
       window.speechSynthesis.speak(utterance);
     }
+
+    function pausar() {
+      window.speechSynthesis.cancel(); // pausa/cancela a leitura
+    }
+
+    // Atualiza valor mostrado da velocidade
+    const speedInput = document.getElementById('speed');
+    const speedValue = document.getElementById('speedValue');
+    speedInput.addEventListener('input', () => {
+      speedValue.innerText = speedInput.value + 'x';
+    });
   </script>
 </body>
 </html>
