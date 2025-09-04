@@ -41,6 +41,7 @@
       text-align: left; 
       margin-left: auto; 
       margin-right: auto;
+      user-select: text;
     }
 
     mark { background-color: yellow; font-weight: bold; }
@@ -127,22 +128,30 @@
     }
 
     function ouvir() {
-      const texto = document.getElementById('resultado').innerText;
-      if (!texto || texto === 'Nenhum resultado encontrado.' || texto === 'Digite uma palavra ou versículo.') {
+      const selection = window.getSelection().toString().trim();
+      const textoTodo = document.getElementById('resultado').innerText;
+
+      if (!textoTodo || textoTodo === 'Nenhum resultado encontrado.' || textoTodo === 'Digite uma palavra ou versículo.') {
         alert('Não há texto para ouvir.');
         return;
       }
 
-      const rate = parseFloat(document.getElementById('speed').value);
+      let textoParaLer = textoTodo;
 
-      const utterance = new SpeechSynthesisUtterance(texto);
+      if (selection) {
+        const lerSelecionado = confirm('Deseja ler apenas o texto selecionado?\nClique "OK" para ler selecionado ou "Cancelar" para ler todo o resultado.');
+        textoParaLer = lerSelecionado ? selection : textoTodo;
+      }
+
+      const rate = parseFloat(document.getElementById('speed').value);
+      const utterance = new SpeechSynthesisUtterance(textoParaLer);
       utterance.lang = 'pt-BR';
-      utterance.rate = rate; // define a velocidade
+      utterance.rate = rate;
       window.speechSynthesis.speak(utterance);
     }
 
     function pausar() {
-      window.speechSynthesis.cancel(); // pausa/cancela a leitura
+      window.speechSynthesis.cancel();
     }
 
     // Atualiza valor mostrado da velocidade
