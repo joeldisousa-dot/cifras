@@ -15,13 +15,13 @@
 
     h1 {
       margin: 20px;
-      color: #000; /* garante título preto */
+      color: #000;
     }
 
     h2 {
       margin: 20px 0 10px 0;
       font-size: 1.5em;
-      color: #000; /* garante subtítulo preto */
+      color: #000;
     }
 
     ul {
@@ -40,12 +40,12 @@
 
     a {
       text-decoration: none;
-      color: #000; /* links em preto */
+      color: #000;
       font-size: 20px;
     }
 
     a:hover {
-      color: #333; /* leve escurecimento ao passar o mouse */
+      color: #333;
     }
 
     img {
@@ -53,6 +53,35 @@
       margin: 20px auto;
       display: block;
       border-radius: 12px;
+    }
+
+    /* Estilo da barra de pesquisa */
+    .search-container {
+      margin-top: 40px;
+    }
+
+    .search-container input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      border-radius: 8px;
+      border: 1px solid #000;
+      font-size: 16px;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .search-container button:hover {
+      background-color: #333;
     }
   </style>
 </head>
@@ -70,5 +99,13 @@
     <li><a href="Salvação/index.html">🩸 Salvação</a></li>
     <li><a href="Criação/index.html">🗣️ Criação</a></li>
   </ul>
+
+  <!-- Campo de pesquisa bíblica -->
+  <div class="search-container">
+    <form action="https://www.google.com/search" method="get" target="_blank">
+      <input type="text" name="q" placeholder="Pesquisar palavras bíblicas">
+      <button type="submit">Pesquisar</button>
+    </form>
+  </div>
 </body>
 </html>
