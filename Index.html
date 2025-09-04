@@ -26,7 +26,23 @@
     .search-container button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #000; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; margin-left: 10px; }
     .search-container button:hover { background-color: #333; }
 
-    .search-result { margin-top: 30px; width: 90%; max-width: 900px; height: 500px; border: 2px solid #000; border-radius: 12px; padding: 10px; overflow-y: auto; background-color: #fff; color: #000; text-align: left; }
+    /* Caixa de resultados mais larga */
+    .search-result { 
+      margin-top: 30px; 
+      width: 95%;           /* maior largura */
+      max-width: 1200px;    /* limite máximo para telas grandes */
+      height: 500px; 
+      border: 2px solid #000; 
+      border-radius: 12px; 
+      padding: 10px; 
+      overflow-y: auto; 
+      background-color: #fff; 
+      color: #000; 
+      text-align: left; 
+      margin-left: auto; 
+      margin-right: auto;
+    }
+
     mark { background-color: yellow; font-weight: bold; }
   </style>
 </head>
@@ -46,8 +62,8 @@
 
   <!-- Campo de pesquisa local -->
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Pesquisar palavra ou versículo">
-    <button onclick="buscar()">Pesquisar</button>
+    <input type="text" id="searchInput" placeholder="Digite palavra ou versículo">
+    <button onclick="buscar()">Pesquise na Bíblia</button>
   </div>
 
   <!-- Caixa de resultados -->
@@ -80,7 +96,6 @@
       const resultados = linhas.filter(linha => linha.toLowerCase().includes(termo));
 
       if (resultados.length > 0) {
-        // Destaca o termo pesquisado
         const regex = new RegExp(`(${termo})`, 'gi');
         const destacados = resultados.map(linha => linha.replace(regex, '<mark>$1</mark>'));
         resultadoDiv.innerHTML = destacados.join('<br><br>');
