@@ -2,81 +2,38 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Transpor Cifras - Google Drive</title>
+  <title>KingCast</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    textarea { width: 100%; height: 400px; margin-top: 10px; }
-    .linha { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    label { white-space: nowrap; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 5px 0; cursor: pointer; color: blue; text-decoration: underline; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #111;
+      color: #fff;
+    }
+    img {
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+    }
+    iframe {
+      margin-top: 20px;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
-  <h2>Transpor Arquivo de Cifras (.txt)</h2>
+  <h1>🎙️ KingCast</h1>
+  <h3>Transmitindo o Reino</h3>
 
-  <div class="linha">
-    <label>Semitons:</label>
-    <input type="number" id="semitons" value="0" style="width:60px;">
-    <button onclick="transporArquivo()">Transpor</button>
-    <button onclick="window.open('https://drive.google.com/drive/u/4/folders/15QBR_635ZZT1OFkohWFyOY2Un1m0wxf1', '_blank')">Abrir Drive</button>
-  </div>
+  <!-- Imagem local -->
+  <img src="C:/Users/SEU_NOME/Imagens/cast.png" alt="Logo KingCast">
 
-  <h3>Arquivos disponíveis:</h3>
-  <ul id="fileList"></ul>
-
-<textarea id="resultado"></textarea>
-
-  <script>
-    // Funções de transposição
-    const NOTAS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    const BEMOL_PARA_SUSTENIDO = {'Db': 'C#', 'Eb': 'D#', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#'};
-
-    function normalizarNota(nota) {
-      return BEMOL_PARA_SUSTENIDO[nota] || nota;
-    }
-
-    function extrairTonalidade(acorde) {
-      if (acorde.length > 1 && ['#', 'b'].includes(acorde[1])) {
-        return [acorde.slice(0,2), acorde.slice(2)];
-      }
-      return [acorde[0], acorde.slice(1)];
-    }
-
-    function transporAcorde(acorde, semitons) {
-      let [nota, sufixo] = extrairTonalidade(acorde);
-      nota = normalizarNota(nota);
-      if (!NOTAS.includes(nota)) return acorde;
-      let novaPos = (NOTAS.indexOf(nota) + semitons + 12) % 12;
-      return NOTAS[novaPos] + sufixo;
-    }
-
-    function linhaPareceCifra(linha) {
-      return /\b[A-G][#b]?(m|maj|min|sus|dim|aug)?[0-9]?\b/g.test(linha);
-    }
-
-    function transporLinha(linha, semitons) {
-      return linha.split(/\s+/).map(p => transporAcorde(p, semitons)).join('  ');
-    }
-
-    function transporConteudo(texto, semitons) {
-      return texto.split('\n').map(linha =>
-        linhaPareceCifra(linha) ? transporLinha(linha.trim(), semitons) : linha
-      ).join('\n');
-    }
-
-    function transporArquivo() {
-      const semitons = parseInt(document.getElementById('semitons').value, 10);
-      const resultado = document.getElementById('resultado');
-      const texto = resultado.value;
-      if (!texto) {
-        alert("Nenhum texto carregado ainda!");
-        return;
-      }
-      const transposto = transporConteudo(texto, semitons);
-      resultado.value = transposto;
-    }
-  </script>
+  <!-- Player Spotify -->
+  <iframe style="border-radius:12px" 
+    src="https://open.spotify.com/embed/episode/3aiXGdYmC6l7qnnDzEkbn0?utm_source=generator" 
+    width="100%" height="152" frameborder="0" 
+    allowfullscreen="" 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+    loading="lazy"></iframe>
 </body>
 </html>
-
