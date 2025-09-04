@@ -11,7 +11,6 @@
     ul { list-style: none; padding: 0; }
     li { margin: 5px 0; cursor: pointer; color: blue; text-decoration: underline; }
   </style>
-  <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
   <h2>Transpor Arquivo de Cifras (.txt)</h2>
@@ -20,7 +19,7 @@
     <label>Semitons:</label>
     <input type="number" id="semitons" value="0" style="width:60px;">
     <button onclick="transporArquivo()">Transpor</button>
-    <button onclick="handleAuthClick()">Abrir Drive</button>
+    <button onclick="window.open('https://drive.google.com/drive/u/4/folders/15QBR_635ZZT1OFkohWFyOY2Un1m0wxf1', '_blank')">Abrir Drive</button>
   </div>
 
   <h3>Arquivos disponíveis:</h3>
@@ -29,57 +28,6 @@
   <textarea id="resultado" readonly></textarea>
 
   <script>
-    // ⚠️ Substitua pelos seus dados do Google Cloud
-    const CLIENT_ID = "SEU_CLIENT_ID.apps.googleusercontent.com";
-    const API_KEY = "SEU_API_KEY"; 
-    const FOLDER_ID = "15QBR_635ZZT1OFkohWFyOY2Un1m0wxf1"; 
-    const SCOPES = "https://www.googleapis.com/auth/drive.readonly";
-
-    function initClient() {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-        scope: SCOPES,
-      });
-    }
-
-    gapi.load("client:auth2", initClient);
-
-    function handleAuthClick() {
-      gapi.auth2.getAuthInstance().signIn().then(listFiles);
-    }
-
-    function listFiles() {
-      gapi.client.drive.files.list({
-        q: `'${FOLDER_ID}' in parents and mimeType='text/plain'`,
-        fields: "files(id, name)",
-      }).then(function(response) {
-        const files = response.result.files;
-        const list = document.getElementById("fileList");
-        list.innerHTML = "";
-        if (files && files.length > 0) {
-          files.forEach(file => {
-            const li = document.createElement("li");
-            li.textContent = file.name;
-            li.onclick = () => loadFile(file.id);
-            list.appendChild(li);
-          });
-        } else {
-          list.innerHTML = "<li>Nenhum arquivo .txt encontrado.</li>";
-        }
-      });
-    }
-
-    function loadFile(fileId) {
-      gapi.client.drive.files.get({
-        fileId: fileId,
-        alt: "media"
-      }).then(response => {
-        document.getElementById("resultado").value = response.body;
-      });
-    }
-
     // Funções de transposição
     const NOTAS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const BEMOL_PARA_SUSTENIDO = {'Db': 'C#', 'Eb': 'D#', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#'};
