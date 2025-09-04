@@ -2,52 +2,40 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Explorar Pastas</title>
+  <title>📂 KingCast - Índice</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #111;
+      background: #111;
       color: #fff;
+      text-align: center;
     }
-    img {
-      max-width: 200px;
-      margin: 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #000;
+    h1 {
+      margin: 20px;
     }
-    #container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+    }
+    a {
+      text-decoration: none;
+      color: #ffd700;
+      font-size: 20px;
+    }
+    a:hover {
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <h1>📂 Visualizar Imagens da Pasta</h1>
-  <h3>Selecione uma pasta do seu computador</h3>
-
-  <!-- Input para escolher a pasta -->
-  <input type="file" webkitdirectory multiple />
-
-  <div id="container"></div>
-
-  <script>
-    const input = document.querySelector('input[type="file"]');
-    const container = document.getElementById("container");
-
-    input.addEventListener("change", (event) => {
-      container.innerHTML = ""; // limpa antes
-      const files = event.target.files;
-      for (let file of files) {
-        if (file.type.startsWith("image/")) {
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(file);
-          container.appendChild(img);
-        }
-      }
-    });
-  </script>
+  <h1>📂 Pastas Disponíveis</h1>
+  <ul>
+    <li><a href="Deus/index.html">Deus</a></li>
+    <li><a href="OutraPasta/index.html">Outra Pasta</a></li>
+    <li><a href="MaisUma/index.html">Mais Uma</a></li>
+  </ul>
 </body>
 </html>
