@@ -36,9 +36,39 @@
         height: 200px;   /* altura menor em telas pequenas */
       }
     }
+
+    /* Botão Voltar */
+    .botao-voltar {
+      text-align: center;
+      margin-bottom: 20px; /* espaço entre botão e título */
+      width: 100%;
+    }
+
+    .botao-voltar a {
+      display: inline-block;
+      background-color: beige;
+      color: #4B3621;
+      padding: 10px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .botao-voltar a:hover {
+      background-color: #4B3621;
+      color: beige;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
+  <!-- Botão Voltar no topo -->
+  <div class="botao-voltar">
+    <a href="../index.html">← Voltar</a>
+  </div>
+
   <h1>KingCast - Espírito Santo</h1>
 
   <!-- Players Spotify -->
