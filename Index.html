@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Transpor Cifras - Google Drive</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    textarea { width: 100%; height: 400px; margin-top: 10px; }
+    .linha { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    label { white-space: nowrap; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 5px 0; cursor: pointer; color: blue; text-decoration: underline; }
+  </style>
+  <script src="https://apis.google.com/js/api.js"></script>
+</head>
+<body>
+  <h2>Transpor Arquivo de Cifras (.txt)</h2>
+
+  <div class="linha">
+    <label>Semitons:</label>
+    <input type="number" id="semitons" value="0" style="width:60px;">
+    <button onclick="transporArquivo()">Transpor</button>
+    <button onclick="handleAuthClick()">Abrir Drive</button>
+  </div>
+
+  <h3>Arquivos disponíveis:</h3>
+  <ul id="fileList"></ul>
+
+  <textarea id="resultado" readonly></textarea>
+
+  <script>
+    // 🚨 Troque pelo seu CLIENT_ID criado no Google Cloud
+    const CLIENT_ID = "SEU_CLIENT_ID.apps.googleusercontent.com";
+    const API_KEY = "SEU_API_KEY"; // opcional, mas recomendado
+    const FOLDER_ID = "15QBR_635ZZT1OFkohWFyOY2Un1m0wxf1"; // ID da pasta do seu Drive
+    const SCOPES = "https://www.googleapis.com/auth/drive.readonly";
+
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+        scope: SCOPES,
+      });
+    }
+
+    gapi.load("client:auth2", initClient);
+
+    function handleAuthClick() {
+      gapi.auth2.getAuthInstance().signIn().then(listFiles);
+    }
+
+    function listFiles() {
+      gapi.client.drive.files.list({
+        q: `'${FOLDER_ID}' in parents and mimeType='text/plain'`,
+        fields: "files(id, name)",
+      }).then(function(response) {
+        const files = response.result.files;
+        const list = document.getElementById("fileList");
+        list.innerHTML = "";
+        if (files && files.length > 0) {
+          files.forEach(file => {
+            const li = document.createElement("li");
+            li.textContent = file.name;
+            li.onclick = () => loadFile(file.id);
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = "<li>Nenhum arquivo .txt encontrado.</li>";
+        }
+      });
+    }
+
+    function loadFile(fileId) {
+      gapi.client.drive.files.get({
+        fileId: fileId,
+        alt: "media"
+      }).then(response => {
+        document.getElementById("resultado").value = response.body;
+      });
+    }
+
+    // Funções de transposição já existentes
+    const NOTAS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const BEMOL_PARA_SUSTENIDO = {'Db': 'C#', 'Eb': 'D#', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#'};
+
+    function normalizarNota(nota) {
+      return BEMOL_PARA_SUSTENIDO[nota] || nota;
+    }
+
+    function extrairTonalidade(acorde) {
+      if (acorde.length > 1 && ['#', 'b'].includes(acorde[1])) {
+        return [acorde.slice(0,2), acorde.slice(2)];
+      }
+      return [acorde[0], acorde.slice(1)];
+    }
+
+    function transporAcorde(acorde, semitons) {
+      let [nota, sufixo] = extrairTonalidade(acorde);
+      nota = normalizarNota(nota);
+      if (!NOTAS.includes(nota)) return acorde;
+      let novaPos = (NOTAS.indexOf(nota) + semitons + 12) % 12;
+      return NOTAS[novaPos] + sufixo;
+    }
+
+    function linhaPareceCifra(linha) {
+      return /\b[A-G][#b]?(m|maj|min|sus|dim|aug)?[0-9]?\b/g.test(linha);
+    }
+
+    function transporLinha(linha, semitons) {
+      return linha.split(/\s+/).map(p => transporAcorde(p, semitons)).join('  ');
+    }
+
+    function transporConteudo(texto, semitons) {
+      return texto.split('\n').map(linha =>
+        linhaPareceCifra(linha) ? transporLinha(linha.trim(), semitons) : linha
+      ).join('\n');
+    }
+
+    function transporArquivo() {
+      const semitons = parseInt(document.getElementById('semitons').value, 10);
+      const resultado = document.getElementById('resultado');
+      const texto = resultado.value;
+      if (!texto) {
+        alert("Nenhum texto carregado ainda!");
+        return;
+      }
+      const transposto = transporConteudo(texto, semitons);
+      resultado.value = transposto;
+    }
+  </script>
+</body>
+</html>
