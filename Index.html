@@ -83,6 +83,16 @@
     .search-container button:hover {
       background-color: #333;
     }
+
+    /* Caixa de resultados */
+    .search-result {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 900px;
+      height: 500px;
+      border: 2px solid #000;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
@@ -102,10 +112,23 @@
 
   <!-- Campo de pesquisa bíblica -->
   <div class="search-container">
-    <form action="https://www.google.com/search" method="get" target="_blank">
-      <input type="text" name="q" placeholder="Pesquisar palavras bíblicas">
+    <form id="searchForm" target="searchResultIframe" onsubmit="return updateSearch()">
+      <input type="text" id="searchInput" name="q" placeholder="Pesquisar palavras bíblicas" required>
       <button type="submit">Pesquisar</button>
     </form>
   </div>
+
+  <!-- Caixa para exibir resultado -->
+  <iframe name="searchResultIframe" class="search-result"></iframe>
+
+  <script>
+    function updateSearch() {
+      var query = document.getElementById('searchInput').value;
+      var iframe = document.getElementsByName('searchResultIframe')[0];
+      // Pesquisar no Google com palavras-chave bíblicas
+      iframe.src = 'https://www.google.com/search?q=' + encodeURIComponent(query + ' site:bibliaonline.com.br');
+      return false; // impede envio normal do form
+    }
+  </script>
 </body>
 </html>
