@@ -3,30 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>KingCast - Jesus</title>
-  <style>
-    body {
-      background-color: beige;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1 {
-      color: black;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    iframe {
-      border-radius: 12px;
-      width: 100%;
-      max-width: 660px; /* limite máximo de largura */
-      height: 232px; /* altura mínima para barra lateral aparecer */
-      margin-bottom: 20px;
-    }
-  </style>
+  <!-- Botão Voltar -->
+<div class="botao-voltar">
+  <a href="../index.html">← Voltar</a>
+</div>
+
+<style>
+  .botao-voltar {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .botao-voltar a {
+    display: inline-block;
+    background-color: beige;
+    color: #4B3621;
+    padding: 10px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .botao-voltar a:hover {
+    background-color: #4B3621;
+    color: beige;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+</style>
+
 </head>
 <body>
   <h1>KingCast - Jesus</h1>
