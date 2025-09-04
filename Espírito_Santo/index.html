@@ -13,18 +13,28 @@
       font-family: Arial, sans-serif;
       padding: 20px;
     }
+
     h1 {
       color: black;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       text-align: center;
+      font-size: 2em;
     }
+
     iframe {
       border-radius: 12px;
-      width: 100%;
-      max-width: 660px; /* limite máximo de largura */
-      height: 232px; /* altura mínima para barra lateral aparecer */
+      width: 90%;        /* largura responsiva */
+      max-width: 660px;  /* limite máximo */
+      height: 232px;     /* altura para barra lateral */
       margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* leve sombra */
+    }
+
+    @media (max-width: 480px) {
+      iframe {
+        height: 200px;   /* altura menor em telas pequenas */
+      }
     }
   </style>
 </head>
@@ -32,10 +42,25 @@
   <h1>KingCast - Espírito Santo</h1>
 
   <!-- Players Spotify -->
-  <iframe src="https://open.spotify.com/embed/episode/5QIhhCmfBFQp8pl5HEpPq6?si=8cbcc71d7da94fd0" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/7isD2zfEsHZ5cbdT3HZpM0?si=ad21e448e14e48ae" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/1RGVQOaTnP85gsLQGciEwk?si=15cdbfa355d14ba2" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
- 
-  
+  <iframe 
+    src="https://open.spotify.com/embed/episode/5QIhhCmfBFQp8pl5HEpPq6?si=8cbcc71d7da94fd0" 
+    frameborder="0" 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+    loading="lazy"
+    title="Podcast Espírito Santo - Episódio 1"></iframe>
+
+  <iframe 
+    src="https://open.spotify.com/embed/episode/7isD2zfEsHZ5cbdT3HZpM0?si=ad21e448e14e48ae" 
+    frameborder="0" 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+    loading="lazy"
+    title="Podcast Espírito Santo - Episódio 2"></iframe>
+
+  <iframe 
+    src="https://open.spotify.com/embed/episode/1RGVQOaTnP85gsLQGciEwk?si=15cdbfa355d14ba2" 
+    frameborder="0" 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+    loading="lazy"
+    title="Podcast Espírito Santo - Episódio 3"></iframe>
 </body>
 </html>
