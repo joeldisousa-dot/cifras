@@ -3,49 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title>KingCast - Jesus</title>
-  <!-- Botão Voltar -->
-<div class="botao-voltar">
-  <a href="../index.html">← Voltar</a>
-</div>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: beige;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-<style>
-  .botao-voltar {
-    text-align: center;
-    margin-top: 30px;
-  }
+    h1 {
+      color: black;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
-  .botao-voltar a {
-    display: inline-block;
-    background-color: beige;
-    color: #4B3621;
-    padding: 10px 25px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
+    iframe {
+      border-radius: 12px;
+      width: 90%;
+      max-width: 660px;
+      height: 232px;
+      margin-bottom: 20px;
+    }
 
-  .botao-voltar a:hover {
-    background-color: #4B3621;
-    color: beige;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  }
-</style>
+    /* Botão Voltar */
+    .botao-voltar {
+      text-align: center;
+      margin-top: 30px;
+    }
 
+    .botao-voltar a {
+      display: inline-block;
+      background-color: beige;
+      color: #4B3621;
+      padding: 10px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .botao-voltar a:hover {
+      background-color: #4B3621;
+      color: beige;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
   <h1>KingCast - Jesus</h1>
 
   <!-- Players Spotify -->
-  <iframe src="https://open.spotify.com/embed/episode/6NrCyyguWwZq9TXXXdLIAQ?si=cfbfffc9d0144bf3" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/0glLBC6gb1cS9eZ0D5HRRl?si=3d47dbd7280e4655" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/6KMtaYjFEt8zHhOUAZeUov?si=9456971e733640f5" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/6lQVKVmaKQ8nyvQtZe9aBE?si=af86336f45d745a2" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/4261KcsZEzmmALWo5wBZz5?si=88607c1f817e489d" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/1NsTnWYmZUnsisRAfrchJL?si=6555acf16ff44602" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <iframe src="https://open.spotify.com/embed/episode/5cZc9MsologwemMc1ChqO7?si=906aaaa928414b52" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/6NrCyyguWwZq9TXXXdLIAQ?si=cfbfffc9d0144bf3" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 1"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/0glLBC6gb1cS9eZ0D5HRRl?si=3d47dbd7280e4655" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 2"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/6KMtaYjFEt8zHhOUAZeUov?si=9456971e733640f5" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 3"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/6lQVKVmaKQ8nyvQtZe9aBE?si=af86336f45d745a2" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 4"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/4261KcsZEzmmALWo5wBZz5?si=88607c1f817e489d" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 5"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/1NsTnWYmZUnsisRAfrchJL?si=6555acf16ff44602" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 6"></iframe>
+  <iframe src="https://open.spotify.com/embed/episode/5cZc9MsologwemMc1ChqO7?si=906aaaa928414b52" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Episódio 7"></iframe>
 
-
+  <!-- Botão Voltar -->
+  <div class="botao-voltar">
+    <a href="../index.html">← Voltar</a>
+  </div>
 </body>
 </html>
