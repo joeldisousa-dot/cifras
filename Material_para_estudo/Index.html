@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>📚 Material para Estudo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F5F5DC; /* bege claro */
+      color: #000;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: center;
+    }
+    li {
+      margin: 10px 0;
+    }
+    a {
+      text-decoration: none;
+      color: #000;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    a:hover {
+      color: #333;
+    }
+
+    /* Janela do PDF */
+    #viewer {
+      margin-top: 30px;
+      width: 100%;
+      height: 600px;
+      border: 2px solid #000;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Material para Estudo</h1>
+
+  <ul>
+    <li><a href="#" onclick="abrirPDF('Salvação - Apostila.pdf')">Salvação (apostila)</a></li>
+    <li><a href="#" onclick="abrirPDF('Salvação Aula 1 de 4 - Slides.pdf')">Salvação Aula 1 de 4 - Slides</a></li>
+    <li><a href="#" onclick="abrirPDF('Salvação Aula 2 de 4 - Slides.pdf')">Salvação Aula 2 de 4 - Slides</a></li>
+    <li><a href="#" onclick="abrirPDF('Salvação Aula 3 de 4 - Slides.pdf')">Salvação Aula 3 de 4 - Slides</a></li>
+    <!-- Adicione mais conforme necessário -->
+  </ul>
+
+  <!-- Área para exibir o PDF -->
+  <iframe id="viewer"></iframe>
+
+  <script>
+    function abrirPDF(arquivo) {
+      // Mostra o PDF no iframe
+      document.getElementById('viewer').src = arquivo + "#toolbar=0&navpanes=0&scrollbar=0";
+    }
+  </script>
+</body>
+</html>
 
