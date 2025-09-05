@@ -39,16 +39,33 @@
       border: 2px solid #000;
       border-radius: 10px;
     }
+
+    /* Botão Voltar */
+    .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #000;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .back-button:hover {
+      background-color: #333;
+    }
   </style>
 </head>
 <body>
+  <!-- Botão Voltar -->
+  <a href="../index.html" class="back-button">⬅ Voltar</a>
+
   <h1>📚 Material para Estudo</h1>
 
   <ul>
-    <li><a href="#" onclick="abrirPDF('Salvação - Apostila.pdf')">Salvação (apostila)</a></li>
-    <li><a href="#" onclick="abrirPDF('Salvação Aula 1 de 4 - Slides.pdf')">Salvação Aula 1 de 4 - Slides</a></li>
-    <li><a href="#" onclick="abrirPDF('Salvação Aula 2 de 4 - Slides.pdf')">Salvação Aula 2 de 4 - Slides</a></li>
-    <li><a href="#" onclick="abrirPDF('Salvação Aula 3 de 4 - Slides.pdf')">Salvação Aula 3 de 4 - Slides</a></li>
+    <li><a href="#" onclick="abrirPDF('arquivo1.pdf')">Arquivo 1</a></li>
+    <li><a href="#" onclick="abrirPDF('arquivo2.pdf')">Arquivo 2</a></li>
+    <li><a href="#" onclick="abrirPDF('arquivo3.pdf')">Arquivo 3</a></li>
     <!-- Adicione mais conforme necessário -->
   </ul>
 
@@ -57,10 +74,9 @@
 
   <script>
     function abrirPDF(arquivo) {
-      // Mostra o PDF no iframe
+      // Mostra o PDF no iframe sem toolbar do visualizador
       document.getElementById('viewer').src = arquivo + "#toolbar=0&navpanes=0&scrollbar=0";
     }
   </script>
 </body>
 </html>
-
