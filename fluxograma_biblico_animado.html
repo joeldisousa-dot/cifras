@@ -1,498 +1,143 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fluxograma Bíblico Detalhado (Vertical)</title>
-<style>
-  :root{
-    --bg:#071025;
-    --card:#0b1530;
-    --muted:#9fb0c8;
-    --accent:#2dd4bf;
-    --accent-2:#ffb86b;
-    --danger:#ff6b6b;
-    --glass: rgba(255,255,255,0.03);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,#041021 0%,#071025 100%);color:#eaf3fb}
-  .container{max-width:760px;margin:18px auto;padding:18px}
-  h1{font-size:20px;margin:0 0 8px}
-  p.lead{color:var(--muted);margin:0 0 16px}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fluxograma Bíblico Animado</title>
+  <style>
+    :root{
+      --bg: #f0f1eb; /* cor bege */
+      --panel: #ffffff;
+      --panel-2: #f5f5dc;
+      --text: #333333;
+      --muted: #666666;
+      --red: #ff4d6d;
+      --green: #2dd4bf;
+      --yellow: #fde047;
+      --card: #ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,.15);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    .wrap{max-width:1120px;margin:40px auto;padding:0 16px}
+    header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:clamp(20px,3.2vw,30px);margin:0}
+    .subtitle{color:var(--muted);font-size:14px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    button{appearance:none;border:0;border-radius:14px;padding:10px 14px;background:linear-gradient(180deg,var(--panel),var(--panel-2));color:var(--text);box-shadow:var(--shadow);cursor:pointer;transition:.2s transform,.2s filter}
+    button:hover{filter:brightness(1.05)}
+    button:active{transform:translateY(1px)}
 
-  /* Timeline (vertical, portrait-friendly) */
-  .timeline{position:relative;padding-left:60px;border-left:2px solid rgba(255,255,255,0.04);padding-bottom:40px}
-  .marker{position:absolute;left:22px;width:16px;height:16px;border-radius:50%;background:linear-gradient(180deg,var(--accent),#1ea99a);box-shadow:0 6px 18px rgba(45,212,191,0.08);transform:translateX(-50%)}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){.grid{grid-template-columns:1fr}}
 
-  .event{position:relative;margin:26px 0 26px 0;padding:12px 14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px)}
-  .event .head{display:flex;align-items:center;gap:12px}
-  .event .icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03)}
-  .event .title{font-weight:700}
-  .event .date{font-size:13px;color:var(--muted)}
-  .event .ref{font-size:12px;color:var(--muted);margin-top:6px}
-  .event .desc{margin-top:8px;color:#d9eaf2;font-size:13px;line-height:1.35}
+    .panel{background:var(--panel);border:1px solid rgba(0,0,0,.1);box-shadow:var(--shadow);border-radius:18px;padding:18px}
+    .panel h2{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:18px;letter-spacing:.3px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:600}
+    .badge.bad{background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.3)}
+    .badge.good{background:rgba(45,212,191,.1);color:var(--green);border:1px solid rgba(45,212,191,.35)}
 
-  /* alternating styles for visual rhythm */
-  .event:nth-child(odd){transform-origin:left center}
-  .event:nth-child(even){transform-origin:left center}
+    .stage{position:relative;aspect-ratio:3/4;background:var(--panel);border:1px solid rgba(0,0,0,.1);border-radius:16px;overflow:hidden}
+    .legend{position:absolute;inset:auto 10px 10px 10px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .chip{font-size:12px;color:var(--muted);background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.1);padding:6px 10px;border-radius:999px}
 
-  /* micro-animations per node */
-  .pulse{animation:pulse 2.4s ease-in-out infinite}
-  .glow{animation:glow 3s ease-in-out infinite}
-  .rise{animation:rise 3.2s ease-in-out infinite}
+    .node{position:relative;min-width:140px;max-width:200px;background:rgba(0,0,0,.03);backdrop-filter:blur(2px);border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:10px 12px;margin:16px auto; text-align:center;}
+    .node .title{display:block;font-weight:700; margin-bottom:4px;}
+    .node .desc{color:var(--muted);font-size:12px;}
 
-  @keyframes pulse{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.02)}100%{transform:translateY(0) scale(1)}}
-  @keyframes glow{0%{box-shadow:0 0 0 0 rgba(255,184,107,0.06)}50%{box-shadow:0 12px 30px rgba(255,184,107,0.09)}100%{box-shadow:0 0 0 0 rgba(255,184,107,0.01)}}
-  @keyframes rise{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-
-  /* generation badges (14 em 14) */
-  .genline{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 18px}
-  .gen{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:6px 8px;border-radius:10px;font-size:13px;color:var(--muted)}
-
-  /* sidebar info */
-  .info{margin-top:18px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.03)}
-  .info h3{margin:0 0 8px;font-size:15px}
-  .info p{margin:0;color:var(--muted);font-size:13px}
-
-  /* controls */
-  .controls{display:flex;gap:8px;margin-top:12px}
-  button{background:linear-gradient(180deg,#0d2230,#071823);color:#eaf3fb;border:1px solid rgba(255,255,255,0.03);padding:8px 10px;border-radius:10px;cursor:pointer}
-
-  /* print-friendly / portrait */
-  @media print{ .container{width:210mm; margin:0; padding:12mm} .timeline{padding-left:46px;border-left:1px solid #bbb} }
-
-  /* responsive */
-  @media(max-width:720px){ .container{padding:12px} .event{padding:10px} .event .icon{width:40px;height:40px} }
-</style>
+    .btn-back{margin-bottom:16px;display:inline-block;}
+  </style>
 </head>
 <body>
-<div class="container" role="main">
-  <h1>Fluxograma Bíblico Detalhado (Vertical)</h1>
-  <p class="lead">Linha do tempo com principais eventos bíblicos — posição em retrato para impressão/visualização. As datas são aproximadas; uso do <strong>ano 0</strong> para o nascimento de Jesus conforme solicitado. Embaixo há um painel com marcações de gerações (de 14 em 14) segundo a divisão apresentada em Mateus.</p>
-
-  <div class="controls"><button id="replay">Reproduzir Animação</button><button id="pause">Pausar</button><button id="toc">Mostrar Sumário</button></div>
-
-  <div class="timeline" id="timeline">
-    <div class="marker" style="top:16px"></div>
-
-    <!-- Event items (ordered top->bottom) -->
-    <div class="event pulse" data-idx="1">
-      <div class="head">
-        <div class="icon">🌍</div>
-        <div>
-          <div class="title">Criação</div>
-          <div class="date">~4000 a.C.</div>
-        </div>
+  <div class="wrap">
+    <a href="index.html" class="btn-back"><button>⬅️ Voltar</button></a>
+    <header>
+      <div>
+        <h1>Fluxograma Bíblico Animado</h1>
+        <div class="subtitle">Da Criação ao Apocalipse — Eventos Principais</div>
       </div>
-      <div class="ref">Gênesis 1–2</div>
-      <div class="desc">Deus cria os céus, a terra e toda a criação; o ser humano é feito à imagem de Deus.</div>
-    </div>
+    </header>
 
-    <div class="event rise" data-idx="2">
-      <div class="head">
-        <div class="icon">👫</div>
-        <div>
-          <div class="title">Adão e Eva</div>
-          <div class="date">~4000 a.C.</div>
+    <div class="grid">
+      <!-- Cada panel é um evento bíblico, verticalmente disposto -->
+      <section class="panel">
+        <h2><span class="badge good">🪐 Criação</span></h2>
+        <div class="node">
+          <div class="title">Ano 0</div>
+          <div class="desc">Deus cria o mundo (Gênesis 1)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 2–5</div>
-      <div class="desc">Criação do primeiro casal; início da família humana.</div>
-    </div>
-
-    <div class="event glow" data-idx="3">
-      <div class="head">
-        <div class="icon">🍎</div>
-        <div>
-          <div class="title">Queda</div>
-          <div class="date">~4000 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">👫 Adão e Eva</span></h2>
+        <div class="node">
+          <div class="title">Ano 0</div>
+          <div class="desc">Primeiros humanos no Éden (Gênesis 2)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 3</div>
-      <div class="desc">Desobediência, expulsão do Éden e entrada do pecado no mundo.</div>
-    </div>
-
-    <div class="event pulse" data-idx="4">
-      <div class="head">
-        <div class="icon">⚔️</div>
-        <div>
-          <div class="title">Primeiros Conflitos (Caim e Abel)</div>
-          <div class="date">~3950 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge bad">🍎 Queda</span></h2>
+        <div class="node">
+          <div class="title">Ano 0</div>
+          <div class="desc">Desobediência e expulsão do Éden (Gênesis 3)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 4</div>
-      <div class="desc">Assassinato de Abel por Caim — primeiro homicídio registrado.</div>
-    </div>
-
-    <div class="event rise" data-idx="5">
-      <div class="head">
-        <div class="icon">🌿</div>
-        <div>
-          <div class="title">Seth e Linhagem</div>
-          <div class="date">~3900 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">🌊 Noé</span></h2>
+        <div class="node">
+          <div class="title">~1056</div>
+          <div class="desc">Arca e dilúvio (Gênesis 6-9)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 4–5</div>
-      <div class="desc">Continuação da linhagem piedosa que conduz até Noé.</div>
-    </div>
-
-    <div class="event glow" data-idx="6">
-      <div class="head">
-        <div class="icon">🧾</div>
-        <div>
-          <div class="title">Enoque & Matusalém (breve nota)</div>
-          <div class="date">~3600–3000 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">🛡️ Davi</span></h2>
+        <div class="node">
+          <div class="title">~1040 a.C.</div>
+          <div class="desc">Rei de Israel (1 Samuel 16–1 Reis 2)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 5</div>
-      <div class="desc">Enoque 'andou com Deus' e foi levado; Matusalém é mencionado entre os mais longínquos.</div>
-    </div>
-
-    <div class="event pulse" data-idx="7">
-      <div class="head">
-        <div class="icon">🌊</div>
-        <div>
-          <div class="title">Noé e o Dilúvio</div>
-          <div class="date">~2500 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">👶 Jesus (Nascimento)</span></h2>
+        <div class="node">
+          <div class="title">Ano 0</div>
+          <div class="desc">Nascimento de Jesus (Mateus 1-2, Lucas 2)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 6–9</div>
-      <div class="desc">Deus julga a humanidade com o dilúvio; Noé, sua família e os animais são preservados na arca.</div>
-    </div>
-
-    <div class="event rise" data-idx="8">
-      <div class="head">
-        <div class="icon">🧱</div>
-        <div>
-          <div class="title">Torre de Babel</div>
-          <div class="date">~2300 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge bad">✝️ Morte de Jesus</span></h2>
+        <div class="node">
+          <div class="title">33 anos</div>
+          <div class="desc">Crucificação (Mateus 27, Marcos 15)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 11</div>
-      <div class="desc">A multiplicação de línguas e dispersão dos povos sobre a terra.</div>
-    </div>
-
-    <div class="event glow" data-idx="9">
-      <div class="head">
-        <div class="icon">🛤️</div>
-        <div>
-          <div class="title">Chamado de Abraão</div>
-          <div class="date">~2000 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">☀️ Ressurreição</span></h2>
+        <div class="node">
+          <div class="title">33 anos</div>
+          <div class="desc">Ressuscita ao terceiro dia (Mateus 28)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 12–25</div>
-      <div class="desc">Deus chama Abrão; promessa da descendência e da terra.</div>
-    </div>
-
-    <div class="event pulse" data-idx="10">
-      <div class="head">
-        <div class="icon">👶</div>
-        <div>
-          <div class="title">Isaac & Jacó</div>
-          <div class="date">~1900–1800 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">🌤️ Ascensão</span></h2>
+        <div class="node">
+          <div class="title">33 anos</div>
+          <div class="desc">Jesus sobe ao céu (Atos 1)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 21–35</div>
-      <div class="desc">Promessa cumprida em Isaac; Jacó (Israel) gerador das doze tribos.</div>
-    </div>
-
-    <div class="event rise" data-idx="11">
-      <div class="head">
-        <div class="icon">🧑‍🌾</div>
-        <div>
-          <div class="title">José no Egito</div>
-          <div class="date">~1700 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">⛪ Igreja</span></h2>
+        <div class="node">
+          <div class="title">33-60 d.C.</div>
+          <div class="desc">Atos da Igreja primitiva (Atos 2)</div>
         </div>
-      </div>
-      <div class="ref">Gênesis 37–50</div>
-      <div class="desc">José torna-se governador no Egito, preservando sua família durante a fome.</div>
-    </div>
-
-    <div class="event glow" data-idx="12">
-      <div class="head">
-        <div class="icon">🪔</div>
-        <div>
-          <div class="title">Êxodo — Moisés</div>
-          <div class="date">~1450–1250 a.C.</div>
+      </section>
+      <section class="panel">
+        <h2><span class="badge good">📜 Apocalipse</span></h2>
+        <div class="node">
+          <div class="title">Futuro</div>
+          <div class="desc">Juízo final e Nova Criação (Apocalipse 21-22)</div>
         </div>
-      </div>
-      <div class="ref">Êxodo, Levítico, Números, Deuteronômio</div>
-      <div class="desc">Libertação do povo de Israel do cativeiro egípcio, entrega da Lei e formação como nação.</div>
+      </section>
     </div>
-
-    <div class="event pulse" data-idx="13">
-      <div class="head">
-        <div class="icon">⚔️</div>
-        <div>
-          <div class="title">Conquista de Canaã (Josué)</div>
-          <div class="date">~1400–1200 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">Josué</div>
-      <div class="desc">Entrada e conquista da terra prometida; distribuição às tribos.</div>
-    </div>
-
-    <div class="event rise" data-idx="14">
-      <div class="head">
-        <div class="icon">🪓</div>
-        <div>
-          <div class="title">Período dos Juízes</div>
-          <div class="date">~1200–1020 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">Juízes, Rute</div>
-      <div class="desc">Ciclos de apostasia, opressão e libertação liderados por juízes.</div>
-    </div>
-
-    <div class="event glow" data-idx="15">
-      <div class="head">
-        <div class="icon">👑</div>
-        <div>
-          <div class="title">Samuel, Saul e o inicio da monarquia</div>
-          <div class="date">~1050 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">1 Samuel</div>
-      <div class="desc">Unção de Saul como primeiro rei; Samuel ministra como profeta.</div>
-    </div>
-
-    <div class="event pulse" data-idx="16">
-      <div class="head">
-        <div class="icon">👑</div>
-        <div>
-          <div class="title">Reinado de Davi</div>
-          <div class="date">~1010–970 a.C. (~1000 a.C.)</div>
-        </div>
-      </div>
-      <div class="ref">1 Samuel, 2 Samuel</div>
-      <div class="desc">Davi unifica Israel, estabelece Jerusalém como capital; figura central na genealogia messiânica.</div>
-    </div>
-
-    <div class="event rise" data-idx="17">
-      <div class="head">
-        <div class="icon">🏛️</div>
-        <div>
-          <div class="title">Reinado de Salomão</div>
-          <div class="date">~970–930 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">1 Reis</div>
-      <div class="desc">Construção do Templo, período de grande sabedoria e riqueza.</div>
-    </div>
-
-    <div class="event glow" data-idx="18">
-      <div class="head">
-        <div class="icon">🕊️</div>
-        <div>
-          <div class="title">Divisão do Reino</div>
-          <div class="date">~930 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">1 Reis 12</div>
-      <div class="desc">Reino dividido em Norte (Israel) e Sul (Judá); instabilidade política e religiosa.</div>
-    </div>
-
-    <div class="event pulse" data-idx="19">
-      <div class="head">
-        <div class="icon">🔥</div>
-        <div>
-          <div class="title">Profetas e Exílios</div>
-          <div class="date">~850–586 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">1–2 Reis, Profetas Maiores e Menores</div>
-      <div class="desc">Chamado ao arrependimento; exílio assírio do reino do norte (722 a.C.) e exílio babilônico de Judá (586 a.C.).</div>
-    </div>
-
-    <div class="event rise" data-idx="20">
-      <div class="head">
-        <div class="icon">🏗️</div>
-        <div>
-          <div class="title">Retorno do Exílio</div>
-          <div class="date">~538–430 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">Esdras, Neemias</div>
-      <div class="desc">Persas permitem o retorno; reconstrução do templo e da comunidade judaica.</div>
-    </div>
-
-    <div class="event glow" data-idx="21">
-      <div class="head">
-        <div class="icon">📜</div>
-        <div>
-          <div class="title">Período Intertestamentário</div>
-          <div class="date">~430–5 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">História entre os testamentos</div>
-      <div class="desc">Transformações políticas (grego, romano) e preparação do cenário para o ministério messiânico.</div>
-    </div>
-
-    <div class="event pulse" data-idx="22">
-      <div class="head">
-        <div class="icon">👼</div>
-        <div>
-          <div class="title">Nascimento de João Batista (contexto)</div>
-          <div class="date">~3–1 a.C.</div>
-        </div>
-      </div>
-      <div class="ref">Lucas 1</div>
-      <div class="desc">Início do cumprimento das promessas e preparação para Jesus.</div>
-    </div>
-
-    <div class="event rise" data-idx="23">
-      <div class="head">
-        <div class="icon">✝️</div>
-        <div>
-          <div class="title">Nascimento de Jesus</div>
-          <div class="date">ano 0 (referência; estudiosos: ~6–4 a.C.)</div>
-        </div>
-      </div>
-      <div class="ref">Mateus 1–2; Lucas 1–2</div>
-      <div class="desc">Nascimento do Messias — início da era cristã. (aqui adotamos "ano 0" como referência visual)</div>
-    </div>
-
-    <div class="event glow" data-idx="24">
-      <div class="head">
-        <div class="icon">🕊️</div>
-        <div>
-          <div class="title">Batismo e Início do Ministério</div>
-          <div class="date">~27–30 d.C.</div>
-        </div>
-      </div>
-      <div class="ref">Mateus, Marcos, Lucas, João</div>
-      <div class="desc">Jesus inicia seu ministério público, ensinamentos e milagres.</div>
-    </div>
-
-    <div class="event pulse" data-idx="25">
-      <div class="head">
-        <div class="icon">✝️</div>
-        <div>
-          <div class="title">Morte & Ressurreição</div>
-          <div class="date">~30–33 d.C. (aprox. 33 anos)</div>
-        </div>
-      </div>
-      <div class="ref">Mateus 27–28; Marcos 15–16; Lucas 23–24; João 19–20</div>
-      <div class="desc">Culminância do evangelho: morte vicária, ressurreição e vitória sobre o pecado e a morte.</div>
-    </div>
-
-    <div class="event rise" data-idx="26">
-      <div class="head">
-        <div class="icon">☁️</div>
-        <div>
-          <div class="title">Ascensão</div>
-          <div class="date">~30–33 d.C.</div>
-        </div>
-      </div>
-      <div class="ref">Atos 1</div>
-      <div class="desc">Jesus sobe ao céu; promessa do retorno futuro.</div>
-    </div>
-
-    <div class="event glow" data-idx="27">
-      <div class="head">
-        <div class="icon">🔥</div>
-        <div>
-          <div class="title">Pentecostes e Fundação da Igreja</div>
-          <div class="date">~30–33 d.C.</div>
-        </div>
-      </div>
-      <div class="ref">Atos 2</div>
-      <div class="desc">Espírito Santo é derramado; início da missão da igreja no mundo.</div>
-    </div>
-
-    <div class="event pulse" data-idx="28">
-      <div class="head">
-        <div class="icon">✉️</div>
-        <div>
-          <div class="title">Atividades Missionárias (Paulo)</div>
-          <div class="date">~45–65 d.C.</div>
-        </div>
-      </div>
-      <div class="ref">Atos; Cartas Paulinas</div>
-      <div class="desc">Expansão do evangelho às nações gentias; plantação de igrejas.</div>
-    </div>
-
-    <div class="event rise" data-idx="29">
-      <div class="head">
-        <div class="icon">🏛️</div>
-        <div>
-          <div class="title">Destruição de Jerusalém</div>
-          <div class="date">70 d.C.</div>
-        </div>
-      </div>
-      <div class="ref">História (Joséfo)</div>
-      <div class="desc">Montagem do Templo destruído; grande impacto histórico e religioso.</div>
-    </div>
-
-    <div class="event glow" data-idx="30">
-      <div class="head">
-        <div class="icon">📖</div>
-        <div>
-          <div class="title">Escrita do Apocalipse</div>
-          <div class="date">~95 d.C.</div>
-        </div>
-      </div>
-      <div class="ref">Apocalipse</div>
-      <div class="desc">Visões sobre o fim dos tempos; literatura profética-apocalíptica da igreja primitiva.</div>
-    </div>
-
-    <div class="event pulse" data-idx="31">
-      <div class="head">
-        <div class="icon">🌟</div>
-        <div>
-          <div class="title">Segunda Vinda / Julgamento Final</div>
-          <div class="date">(evento futuro)</div>
-        </div>
-      </div>
-      <div class="ref">Apocalipse 19–22</div>
-      <div class="desc">Retorno de Cristo e consumação de todas as coisas — promessa escatológica.</div>
-    </div>
-
   </div>
-
-  <!-- generation badges: de 14 em 14 (Mateus 1) -->
-  <div class="info" aria-labelledby="gen-title">
-    <h3 id="gen-title">Gerações (ex.: Mateus 1 — agrupamento de 14 em 14)</h3>
-    <p class="lead" style="margin-top:6px">Mateus apresenta a genealogia de Jesus em três grupos de 14 gerações, tradicionalmente contadas assim:</p>
-    <div class="genline" aria-hidden="true">
-      <div class="gen">1–14: Abraão → Davi</div>
-      <div class="gen">15–28: Davi → Exílio</div>
-      <div class="gen">29–42: Exílio → Jesus</div>
-    </div>
-    <p style="margin-top:8px;color:var(--muted);font-size:13px">Observação: contagens variam conforme manuscritos e critérios (saltos genealógicos, nomes incluídos/omitidos). O agrupamento de "14 em 14" é um recurso literário/mnemônico adotado por Mateus.</p>
-  </div>
-
-</div>
-
-<script>
-// sequential reveal animation: reveal events one-by-one
-const events = document.querySelectorAll('.timeline .event');
-let playing = true;
-function revealSequence(){
-  events.forEach((ev,i)=>{
-    ev.style.opacity = 0;
-    ev.style.transform = 'translateY(10px)';
-    ev.style.transition = 'opacity .6s ease, transform .6s ease';
-    setTimeout(()=>{ ev.style.opacity = 1; ev.style.transform = 'translateY(0)'; }, i * 200);
-  });
-}
-revealSequence();
-
-// controls
-const btnReplay = document.getElementById('replay');
-const btnPause = document.getElementById('pause');
-const btnToc = document.getElementById('toc');
-btnReplay.addEventListener('click', ()=>{ revealSequence(); });
-btnPause.addEventListener('click', ()=>{
-  // simple pause: stop CSS animations on nodes
-  if(playing){ events.forEach(e=> e.style.animationPlayState='paused'); btnPause.textContent = 'Retomar'; playing=false; }
-  else { events.forEach(e=> e.style.animationPlayState='running'); btnPause.textContent='Pausar'; playing=true; }
-});
-btnToc.addEventListener('click', ()=>{
-  window.scrollTo({top:0,behavior:'smooth'});
-  alert('Sumário: A linha do tempo lista os principais eventos bíblicos do Criacionismo até a escatologia. A seção "Gerações" mostra o agrupamento de 14 em 14 usado por Mateus.');
-});
-</script>
-
 </body>
 </html>
