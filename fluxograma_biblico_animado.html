@@ -6,138 +6,97 @@
   <title>Fluxograma Bíblico Animado</title>
   <style>
     :root{
-      --bg: #f0f1eb; /* cor bege */
+      --bg: #f5f5dc; /* bege */
       --panel: #ffffff;
-      --panel-2: #f5f5dc;
       --text: #333333;
       --muted: #666666;
-      --red: #ff4d6d;
-      --green: #2dd4bf;
-      --yellow: #fde047;
-      --card: #ffffff;
       --shadow: 0 10px 30px rgba(0,0,0,.15);
+      --green: #2dd4bf;
+      --red: #ff4d6d;
     }
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    .wrap{max-width:1120px;margin:40px auto;padding:0 16px}
+    .wrap{max-width:800px;margin:40px auto;padding:0 16px}
     header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px}
     h1{font-size:clamp(20px,3.2vw,30px);margin:0}
     .subtitle{color:var(--muted);font-size:14px}
-    .controls{display:flex;gap:10px;flex-wrap:wrap}
-    button{appearance:none;border:0;border-radius:14px;padding:10px 14px;background:linear-gradient(180deg,var(--panel),var(--panel-2));color:var(--text);box-shadow:var(--shadow);cursor:pointer;transition:.2s transform,.2s filter}
+    button{appearance:none;border:0;border-radius:14px;padding:10px 14px;background:#fff;color:var(--text);box-shadow:var(--shadow);cursor:pointer;transition:.2s}
     button:hover{filter:brightness(1.05)}
-    button:active{transform:translateY(1px)}
-
-    .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:900px){.grid{grid-template-columns:1fr}}
-
-    .panel{background:var(--panel);border:1px solid rgba(0,0,0,.1);box-shadow:var(--shadow);border-radius:18px;padding:18px}
-    .panel h2{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:18px;letter-spacing:.3px}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:600}
-    .badge.bad{background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.3)}
-    .badge.good{background:rgba(45,212,191,.1);color:var(--green);border:1px solid rgba(45,212,191,.35)}
-
-    .stage{position:relative;aspect-ratio:3/4;background:var(--panel);border:1px solid rgba(0,0,0,.1);border-radius:16px;overflow:hidden}
-    .legend{position:absolute;inset:auto 10px 10px 10px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .chip{font-size:12px;color:var(--muted);background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.1);padding:6px 10px;border-radius:999px}
-
-    .node{position:relative;min-width:140px;max-width:200px;background:rgba(0,0,0,.03);backdrop-filter:blur(2px);border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:10px 12px;margin:16px auto; text-align:center;}
-    .node .title{display:block;font-weight:700; margin-bottom:4px;}
-    .node .desc{color:var(--muted);font-size:12px;}
-
     .btn-back{margin-bottom:16px;display:inline-block;}
+
+    .panel{background:var(--panel);border:1px solid rgba(0,0,0,.1);border-radius:18px;padding:16px;margin-bottom:16px;position:relative}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:600}
+    .badge.good{background:rgba(45,212,191,.1);color:var(--green)}
+    .badge.bad{background:rgba(255,77,109,.1);color:var(--red)}
+
+    .node{position:relative;margin:16px auto;padding:12px;border-radius:14px;background:rgba(0,0,0,.03);text-align:center;box-shadow:var(--shadow);}
+    .node .title{font-weight:700;margin-bottom:4px}
+    .node .desc{font-size:12px;color:var(--muted)}
+
+    /* animação */
+    .highlight{
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(45,212,191,0.5); }
+      50% { box-shadow: 0 0 20px 10px rgba(45,212,191,0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(45,212,191,0); }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <a href="index.html" class="btn-back"><button>⬅️ Voltar</button></a>
     <header>
-      <div>
-        <h1>Fluxograma Bíblico Animado</h1>
-        <div class="subtitle">Da Criação ao Apocalipse — Eventos Principais</div>
-      </div>
+      <h1>Fluxograma Bíblico Animado</h1>
+      <div class="subtitle">Da Criação ao Apocalipse — Eventos Principais</div>
     </header>
 
-    <div class="grid">
-      <!-- Cada panel é um evento bíblico, verticalmente disposto -->
-      <section class="panel">
-        <h2><span class="badge good">🪐 Criação</span></h2>
-        <div class="node">
-          <div class="title">Ano 0</div>
-          <div class="desc">Deus cria o mundo (Gênesis 1)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">👫 Adão e Eva</span></h2>
-        <div class="node">
-          <div class="title">Ano 0</div>
-          <div class="desc">Primeiros humanos no Éden (Gênesis 2)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge bad">🍎 Queda</span></h2>
-        <div class="node">
-          <div class="title">Ano 0</div>
-          <div class="desc">Desobediência e expulsão do Éden (Gênesis 3)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">🌊 Noé</span></h2>
-        <div class="node">
-          <div class="title">~1056</div>
-          <div class="desc">Arca e dilúvio (Gênesis 6-9)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">🛡️ Davi</span></h2>
-        <div class="node">
-          <div class="title">~1040 a.C.</div>
-          <div class="desc">Rei de Israel (1 Samuel 16–1 Reis 2)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">👶 Jesus (Nascimento)</span></h2>
-        <div class="node">
-          <div class="title">Ano 0</div>
-          <div class="desc">Nascimento de Jesus (Mateus 1-2, Lucas 2)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge bad">✝️ Morte de Jesus</span></h2>
-        <div class="node">
-          <div class="title">33 anos</div>
-          <div class="desc">Crucificação (Mateus 27, Marcos 15)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">☀️ Ressurreição</span></h2>
-        <div class="node">
-          <div class="title">33 anos</div>
-          <div class="desc">Ressuscita ao terceiro dia (Mateus 28)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">🌤️ Ascensão</span></h2>
-        <div class="node">
-          <div class="title">33 anos</div>
-          <div class="desc">Jesus sobe ao céu (Atos 1)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">⛪ Igreja</span></h2>
-        <div class="node">
-          <div class="title">33-60 d.C.</div>
-          <div class="desc">Atos da Igreja primitiva (Atos 2)</div>
-        </div>
-      </section>
-      <section class="panel">
-        <h2><span class="badge good">📜 Apocalipse</span></h2>
-        <div class="node">
-          <div class="title">Futuro</div>
-          <div class="desc">Juízo final e Nova Criação (Apocalipse 21-22)</div>
-        </div>
-      </section>
-    </div>
+    <!-- Eventos bíblicos vertical -->
+    <section class="panel">
+      <h2><span class="badge good">🪐 Criação</span></h2>
+      <div class="node highlight"><div class="title">Ano 0</div><div class="desc">Deus cria o mundo (Gênesis 1)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">👫 Adão e Eva</span></h2>
+      <div class="node highlight"><div class="title">Ano 0</div><div class="desc">Primeiros humanos no Éden (Gênesis 2)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge bad">🍎 Queda</span></h2>
+      <div class="node highlight"><div class="title">Ano 0</div><div class="desc">Desobediência e expulsão do Éden (Gênesis 3)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">🌊 Noé</span></h2>
+      <div class="node highlight"><div class="title">~1056</div><div class="desc">Arca e dilúvio (Gênesis 6-9)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">🛡️ Davi</span></h2>
+      <div class="node highlight"><div class="title">~1040 a.C.</div><div class="desc">Rei de Israel (1 Samuel 16–1 Reis 2)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">👶 Jesus (Nascimento)</span></h2>
+      <div class="node highlight"><div class="title">Ano 0</div><div class="desc">Nascimento de Jesus (Mateus 1-2, Lucas 2)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge bad">✝️ Morte de Jesus</span></h2>
+      <div class="node highlight"><div class="title">33 anos</div><div class="desc">Crucificação (Mateus 27, Marcos 15)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">☀️ Ressurreição</span></h2>
+      <div class="node highlight"><div class="title">33 anos</div><div class="desc">Ressuscita ao terceiro dia (Mateus 28)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">🌤️ Ascensão</span></h2>
+      <div class="node highlight"><div class="title">33 anos</div><div class="desc">Jesus sobe ao céu (Atos 1)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">⛪ Igreja</span></h2>
+      <div class="node highlight"><div class="title">33-60 d.C.</div><div class="desc">Atos da Igreja primitiva (Atos 2)</div></div>
+    </section>
+    <section class="panel">
+      <h2><span class="badge good">📜 Apocalipse</span></h2>
+      <div class="node highlight"><div class="title">Futuro</div><div class="desc">Juízo final e Nova Criação (Apocalipse 21-22)</div></div>
+    </section>
   </div>
 </body>
 </html>
