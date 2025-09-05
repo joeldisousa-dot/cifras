@@ -3,176 +3,79 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fluxograma Bíblico Completo</title>
+<title>Panorama Bíblico</title>
 <style>
   :root{
     --bg:#f5f5dc; /* fundo bege */
     --card:#ffffff;
     --muted:#666666;
     --accent:#2dd4bf;
+    --accent-2:#ffb86b;
     --danger:#ff6b6b;
+    --glass: rgba(0,0,0,0.03);
   }
-  body{margin:0;font-family:Arial, sans-serif;background:var(--bg);color:#333}
-  .container{max-width:800px;margin:20px auto;padding:20px}
-  h1{font-size:24px;text-align:center;margin-bottom:10px}
-  .btn-back{margin-bottom:20px}
-  .timeline{position:relative;padding-left:50px;border-left:2px solid #aaa}
-  .event{position:relative;margin-bottom:30px;padding:10px 15px;background:#fff;border-radius:10px;border:1px solid #ccc}
-  .event::before{content:'';position:absolute;left:-27px;top:10px;width:20px;height:20px;background:var(--accent);border-radius:50%}
-  .event .title{font-weight:bold}
-  .event .date{font-size:12px;color:#999}
-  .event .desc{margin-top:5px;font-size:14px}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:#333}
+  .container{max-width:760px;margin:18px auto;padding:18px}
+  h1{font-size:20px;margin:0 0 8px}
+  p.lead{color:var(--muted);margin:0 0 16px}
+
+  .timeline{position:relative;padding-left:60px;border-left:2px solid rgba(0,0,0,.1);padding-bottom:40px}
+  .marker{position:absolute;left:22px;width:16px;height:16px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
+
+  .event{position:relative;margin:26px 0 26px 0;padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid rgba(0,0,0,.1);backdrop-filter:blur(4px)}
+  .event .head{display:flex;align-items:center;gap:12px}
+  .event .icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--glass);border:1px solid rgba(0,0,0,.1)}
+  .event .title{font-weight:700}
+  .event .date{font-size:13px;color:var(--muted)}
+  .event .ref{font-size:12px;color:var(--muted);margin-top:6px}
+  .event .desc{margin-top:8px;color:#333;font-size:13px;line-height:1.35}
+
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+  .glow{animation:glow 3s ease-in-out infinite}
+  .rise{animation:rise 3.2s ease-in-out infinite}
+
+  @keyframes pulse{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.02)}100%{transform:translateY(0) scale(1)}}
+  @keyframes glow{0%{box-shadow:0 0 0 0 rgba(255,184,107,0.06)}50%{box-shadow:0 12px 30px rgba(255,184,107,0.09)}100%{box-shadow:0 0 0 0 rgba(255,184,107,0.01)}}
+  @keyframes rise{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+  .btn-back{margin-bottom:16px;display:inline-block;}
 </style>
 </head>
 <body>
 <div class="container">
   <a href="index.html" class="btn-back"><button>⬅️ Voltar</button></a>
   <h1>Fluxograma Bíblico Completo</h1>
+  <p class="lead">Linha do tempo desde a criação até o juízo final, com datas aproximadas.</p>
+
   <div class="timeline">
+    <div class="marker" style="top:16px"></div>
 
-    <div class="event">
-      <div class="title">Criação</div>
-      <div class="date">~4000 a.C.</div>
-      <div class="desc">Deus cria os céus e a terra.</div>
-    </div>
+    <!-- Criação e primeiros eventos -->
+    <div class="event pulse"><div class="head"><div class="icon">🌍</div><div><div class="title">Criação</div><div class="date">~4000 a.C.</div></div></div><div class="ref">Gênesis 1–2</div><div class="desc">Deus cria o mundo e o ser humano à Sua imagem.</div></div>
+    <div class="event rise"><div class="head"><div class="icon">👫</div><div><div class="title">Adão e Eva</div><div class="date">~4000 a.C.</div></div></div><div class="ref">Gênesis 2–5</div><div class="desc">Primeiro casal humano.</div></div>
+    <div class="event glow"><div class="head"><div class="icon">🍎</div><div><div class="title">Queda</div><div class="date">~4000 a.C.</div></div></div><div class="ref">Gênesis 3</div><div class="desc">Entrada do pecado no mundo.</div></div>
 
-    <div class="event">
-      <div class="title">Adão e Eva</div>
-      <div class="date">~4000 a.C.</div>
-      <div class="desc">Primeiros seres humanos no Éden.</div>
-    </div>
+    <!-- Noé e patriarcas -->
+    <div class="event pulse"><div class="head"><div class="icon">🌊</div><div><div class="title">Noé e o Dilúvio</div><div class="date">~2500 a.C.</div></div></div><div class="ref">Gênesis 6–9</div><div class="desc">Dilúvio e preservação da família de Noé.</div></div>
+    <div class="event rise"><div class="head"><div class="icon">🛤️</div><div><div class="title">Abraão</div><div class="date">~2000 a.C.</div></div></div><div class="ref">Gênesis 12–25</div><div class="desc">Chamado e promessa da descendência.</div></div>
+    <div class="event glow"><div class="head"><div class="icon">👑</div><div><div class="title">Davi</div><div class="date">~1010–970 a.C.</div></div></div><div class="ref">1 Samuel, 2 Samuel</div><div class="desc">Rei de Israel, referência messiânica.</div></div>
 
-    <div class="event">
-      <div class="title">Queda</div>
-      <div class="date">~4000 a.C.</div>
-      <div class="desc">Expulsão do Éden e entrada do pecado.</div>
-    </div>
+    <!-- Jesus -->
+    <div class="event pulse"><div class="head"><div class="icon">👶</div><div><div class="title">Nascimento de Jesus</div><div class="date">Ano 0</div></div></div><div class="ref">Mateus 1–2; Lucas 1–2</div><div class="desc">Nascimento do Messias.</div></div>
+    <div class="event rise"><div class="head"><div class="icon">✝️</div><div><div class="title">Morte e Ressurreição</div><div class="date">~33 d.C.</div></div></div><div class="ref">Mateus 27–28</div><div class="desc">Crucificação e vitória sobre a morte.</div></div>
+    <div class="event glow"><div class="head"><div class="icon">☁️</div><div><div class="title">Ascensão</div><div class="date">~33 d.C.</div></div></div><div class="ref">Atos 1</div><div class="desc">Jesus sobe ao céu; promessa de retorno.</div></div>
 
-    <div class="event">
-      <div class="title">Noé e Dilúvio</div>
-      <div class="date">~2500 a.C.</div>
-      <div class="desc">Deus envia o dilúvio; Noé e sua família são preservados.</div>
-    </div>
+    <!-- Igreja e arrebatamento futuro -->
+    <div class="event pulse"><div class="head"><div class="icon">🔥</div><div><div class="title">Pentecostes / Fundação da Igreja</div><div class="date">~33 d.C.</div></div></div><div class="ref">Atos 2</div><div class="desc">Início da igreja com o derramamento do Espírito Santo.</div></div>
+    <div class="event rise"><div class="head"><div class="icon">🌟</div><div><div class="title">Arrebatamento (evento futuro)</div><div class="date">Futuro</div></div></div><div class="ref">1 Tessalonicenses 4:17</div><div class="desc">Cristo levará a igreja fiel para junto de Si antes da grande tribulação.</div></div>
 
-    <div class="event">
-      <div class="title">Abraão</div>
-      <div class="date">~2000 a.C.</div>
-      <div class="desc">Promessa da descendência e da terra.</div>
-    </div>
+    <!-- Tribulação e Milênio -->
+    <div class="event glow"><div class="head"><div class="icon">⚡</div><div><div class="title">Grande Tribulação / Ira do Cordeiro</div><div class="date">Futuro</div></div></div><div class="ref">Apocalipse 6–19</div><div class="desc">Período de juízo divino sobre a terra antes do milênio.</div></div>
+    <div class="event pulse"><div class="head"><div class="icon">👑</div><div><div class="title">Milênio</div><div class="date">Futuro</div></div></div><div class="ref">Apocalipse 20:1–6</div><div class="desc">Reinado de Cristo por 1000 anos sobre a terra.</div></div>
 
-    <div class="event">
-      <div class="title">Isaac e Jacó</div>
-      <div class="date">~1900–1800 a.C.</div>
-      <div class="desc">Continuação da linhagem messiânica.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">José no Egito</div>
-      <div class="date">~1700 a.C.</div>
-      <div class="desc">José torna-se governador e preserva sua família durante a fome.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Êxodo — Moisés</div>
-      <div class="date">~1450–1250 a.C.</div>
-      <div class="desc">Libertação de Israel do Egito e entrega da Lei.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Conquista de Canaã</div>
-      <div class="date">~1400–1200 a.C.</div>
-      <div class="desc">Entrada na terra prometida e distribuição entre as tribos.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Juízes</div>
-      <div class="date">~1200–1020 a.C.</div>
-      <div class="desc">Período de apostasia e libertação por juízes.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Samuel, Saul e Davi</div>
-      <div class="date">~1050–970 a.C.</div>
-      <div class="desc">Transição para a monarquia; Davi unifica Israel.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Reinado de Salomão</div>
-      <div class="date">~970–930 a.C.</div>
-      <div class="desc">Construção do Templo e sabedoria de Salomão.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Divisão do Reino</div>
-      <div class="date">~930 a.C.</div>
-      <div class="desc">Israel e Judá tornam-se reinos separados.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Exílio Babilônico</div>
-      <div class="date">586 a.C.</div>
-      <div class="desc">Destruição de Jerusalém e cativeiro do povo de Judá.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Retorno do Exílio</div>
-      <div class="date">~538–430 a.C.</div>
-      <div class="desc">Reconstrução do Templo e da comunidade judaica.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Período Intertestamentário</div>
-      <div class="date">~430–5 a.C.</div>
-      <div class="desc">Preparação histórica para o ministério de Jesus.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Nascimento de Jesus</div>
-      <div class="date">Ano 0 (referência visual)</div>
-      <div class="desc">Nascimento do Messias — início da era cristã.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Ministério, Morte e Ressurreição</div>
-      <div class="date">~27–33 d.C.</div>
-      <div class="desc">Ensinamentos, milagres, crucificação e vitória sobre a morte.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Ascensão de Jesus</div>
-      <div class="date">~33 d.C.</div>
-      <div class="desc">Jesus sobe ao céu prometendo retorno.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Pentecostes e Fundação da Igreja</div>
-      <div class="date">~33 d.C.</div>
-      <div class="desc">Espírito Santo derramado; início da missão da igreja.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Atividades Missionárias (Paulo)</div>
-      <div class="date">~45–65 d.C.</div>
-      <div class="desc">Expansão do evangelho às nações.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Destruição de Jerusalém</div>
-      <div class="date">70 d.C.</div>
-      <div class="desc">Templo destruído; grande impacto histórico.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Escrita do Apocalipse</div>
-      <div class="date">~95 d.C.</div>
-      <div class="desc">Visões do fim dos tempos.</div>
-    </div>
-
-    <div class="event">
-      <div class="title">Segunda Vinda / Julgamento Final</div>
-      <div class="date">(evento futuro)</div>
-      <div class="desc">Promessa escatológica: retorno de Cristo e consumação de todas as coisas.</div>
-    </div>
+    <!-- Juízo Final -->
+    <div class="event rise"><div class="head"><div class="icon">🌍</div><div><div class="title">Juízo Final</div><div class="date">Futuro</div></div></div><div class="ref">Apocalipse 20:11–15; 21–22</div><div class="desc">Fim do mundo atual, julgamento dos mortos, criação nova.</div></div>
 
   </div>
 </div>
