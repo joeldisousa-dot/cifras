@@ -8,25 +8,91 @@
       font-family: Arial, sans-serif;
       background-color: #A8D5BA; /* verde-água suave */
       color: #000;
-      text-align: center;
       margin: 0;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
     h1 { margin: 20px; color: #000; }
-    h2 { margin: 20px 0 10px 0; font-size: 1.5em; color: #000; }
-    ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 0; }
-    li { margin: 0; }
-    a { text-decoration: none; color: #000; font-size: 20px; }
-    a:hover { color: #333; }
-    img { max-width: 300px; margin: 20px auto; display: block; border-radius: 12px; }
+    h2 { font-size: 1.5em; color: #000; margin-bottom: 15px; }
+
+    img {
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    /* Layout em colunas */
+    .menu-container {
+      display: flex;
+      justify-content: center;
+      gap: 80px; /* espaço entre colunas */
+      margin-top: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .menu-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-size: 20px;
+    }
+
+    a:hover {
+      color: #333;
+    }
 
     /* Pesquisa */
-    .search-container { margin-top: 40px; }
-    .search-container input[type="text"] { padding: 10px; width: 250px; border-radius: 8px; border: 1px solid #000; font-size: 16px; }
-    .search-container button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #000; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; margin-left: 10px; }
-    .search-container button:hover { background-color: #333; }
+    .search-container {
+      margin-top: 40px;
+      text-align: center;
+    }
 
-    /* Caixa de resultados mais larga */
+    .search-container input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      border-radius: 8px;
+      border: 1px solid #000;
+      font-size: 16px;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .search-container button:hover {
+      background-color: #333;
+    }
+
+    /* Caixa de resultados */
     .search-result { 
       margin-top: 30px; 
       width: 95%;           
@@ -63,26 +129,36 @@
 <body>
   <img src="cast.png" alt="Logo KingCast">
 
-  <h1> 🎙️ </h1>
-  <h2>Índice</h2>
+  <h1> 🎙️ Índice</h1>
 
-  <ul>
-    <li><a href="Deus/index.html"> 🌬️Deus</a></li>
-    <li><a href="Jesus/index.html">👑 Jesus</a></li>
-    <li><a href="Espirito_Santo/index.html">🕊️ Espírito Santo</a></li>
-    <li><a href="Salvação/index.html">🩸 Salvação</a></li>
-    <li><a href="Criação/index.html">🗣️ Criação</a></li>
-    <li><a href="Material_para_estudo/index.html">🗂️ Material para estudo</a></li>
-    <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
-   <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealogica de Jesus</a></li>
-   
-  </ul>
+  <!-- Menus organizados em colunas -->
+  <div class="menu-container">
+    <div class="menu-section">
+      <h2>📢 Em áudio</h2>
+      <ul>
+        <li><a href="Deus/index.html">🌬️ Deus</a></li>
+        <li><a href="Jesus/index.html">👑 Jesus</a></li>
+        <li><a href="Espirito_Santo/index.html">🕊️ Espírito Santo</a></li>
+        <li><a href="Salvação/index.html">🩸 Salvação</a></li>
+        <li><a href="Criação/index.html">🗣️ Criação</a></li>
+      </ul>
+    </div>
+
+    <div class="menu-section">
+      <h2>📄 Documentos</h2>
+      <ul>
+        <li><a href="Material_para_estudo/index.html">🗂️ Material para estudo</a></li>
+        <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
+        <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealógica de Jesus</a></li>
+      </ul>
+    </div>
+  </div>
 
   <!-- Campo de pesquisa local -->
   <div class="search-container">
     <input type="text" id="searchInput" placeholder="Digite palavra ou versículo">
     <button onclick="buscar()">Pesquise na Bíblia</button>
-    <button onclick="lerSelecionado()">Ouvir texto selecionado</button>
+    <button onclick="lerSelecionado()">Ler texto selecionado</button>
     <button onclick="pausar()">⏸️ Pausar</button>
 
     <!-- Controle de velocidade -->
@@ -155,14 +231,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
