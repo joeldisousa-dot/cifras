@@ -1,131 +1,78 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>📂 KingCast - Índice</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #A8D5BA; /* verde-água suave */
-      color: #000;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #A8D5BA; /* verde-água suave */
+    color: #000;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    h1 { margin: 20px; color: #000; }
-    h2 { font-size: 1.5em; color: #000; margin-bottom: 15px; }
+  h1 { margin: 20px; color: #000; }
 
-    img {
-      max-width: 300px;
-      margin: 20px auto;
-      display: block;
-      border-radius: 12px;
-    }
+  h2 { 
+    font-size: 1.5em; 
+    color: #000; 
+    margin-bottom: 10px; 
+    text-decoration: underline; /* sublinhado */
+  }
 
-    /* Layout em colunas */
-    .menu-container {
-      display: flex;
-      justify-content: center;
-      gap: 60px; /* espaço entre colunas */
-      margin-top: 30px;
-      flex-wrap: wrap;
-      width: 100%;
-      max-width: 1200px;
-    }
+  /* Linha separadora abaixo dos títulos */
+  .menu-section hr {
+    border: none;
+    border-top: 2px solid #000;
+    width: 100%;
+    margin: 5px 0 15px 0;
+  }
 
-    .menu-section {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  img {
+    max-width: 300px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 12px;
+  }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+  /* Layout em colunas */
+  .menu-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px; /* espaço entre colunas */
+    margin-top: 30px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+  }
 
-    li {
-      margin: 10px 0;
-    }
+  .menu-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+  }
 
-    a {
-      text-decoration: none;
-      color: #000;
-      font-size: 20px;
-    }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-    a:hover {
-      color: #333;
-    }
+  li {
+    margin: 10px 0;
+  }
 
-    /* Pesquisa */
-    .search-container {
-      margin-top: 40px;
-      text-align: center;
-    }
+  a {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+  }
 
-    .search-container input[type="text"] {
-      padding: 10px;
-      width: 250px;
-      border-radius: 8px;
-      border: 1px solid #000;
-      font-size: 16px;
-    }
+  a:hover {
+    color: #333;
+  }
+</style>
 
-    .search-container button {
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: none;
-      background-color: #000;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
-    .search-container button:hover {
-      background-color: #333;
-    }
-
-    /* Caixa de resultados */
-    .search-result { 
-      margin-top: 30px; 
-      width: 95%;           
-      max-width: 1200px;    
-      height: 500px; 
-      border: 2px solid #000; 
-      border-radius: 12px; 
-      padding: 10px; 
-      overflow-y: auto; 
-      background-color: #fff; 
-      color: #000; 
-      text-align: left; 
-      margin-left: auto; 
-      margin-right: auto;
-      user-select: text;
-    }
-
-    mark { background-color: yellow; font-weight: bold; }
-
-    .speed-control {
-      margin-top: 15px;
-      font-size: 16px;
-    }
-
-    .speed-control label {
-      margin-right: 10px;
-    }
-
-    .speed-control input[type="range"] {
-      vertical-align: middle;
-    }
-  </style>
-</head>
 <body>
   <img src="cast.png" alt="Logo KingCast">
 
@@ -135,17 +82,19 @@
   <div class="menu-container">
     <div class="menu-section">
       <h2>🎙️ Em áudio</h2>
+      <hr>
       <ul>
-        <li><a href="Deus/index.html">🌬️ Deus</a></li>
-        <li><a href="Jesus/index.html">👑 Jesus</a></li>
-        <li><a href="Espirito_Santo/index.html">🕊️ Espírito Santo</a></li>
-        <li><a href="Salvação/index.html">🩸 Salvação</a></li>
-        <li><a href="Criação/index.html">🗣️ Criação</a></li>
+        <li><a href="Deus/index.html">✅ Deus</a></li>
+        <li><a href="Jesus/index.html">✅ Jesus</a></li>
+        <li><a href="Espirito_Santo/index.html">✅ Espírito Santo</a></li>
+        <li><a href="Salvação/index.html">✅ Salvação</a></li>
+        <li><a href="Criação/index.html">✅ Criação</a></li>
       </ul>
     </div>
 
     <div class="menu-section">
       <h2>📄 Documentos</h2>
+      <hr>
       <ul>
         <li><a href="Material_para_estudo/index.html">🗂️ Material para estudo</a></li>
       </ul>
@@ -153,87 +102,11 @@
 
     <div class="menu-section">
       <h2>📊 Panoramas</h2>
+      <hr>
       <ul>
         <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
         <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealógica de Jesus</a></li>
       </ul>
     </div>
   </div>
-
-  <!-- Campo de pesquisa local -->
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Digite palavra ou versículo">
-    <button onclick="buscar()">Pesquise na Bíblia</button>
-    <button onclick="lerSelecionado()">Ler texto selecionado</button>
-    <button onclick="pausar()">⏸️ Pausar</button>
-
-    <!-- Controle de velocidade -->
-    <div class="speed-control">
-      <label for="speed">Velocidade da leitura:</label>
-      <input type="range" id="speed" min="0.5" max="2" value="1" step="0.1">
-      <span id="speedValue">1x</span>
-    </div>
-  </div>
-
-  <!-- Caixa de resultados -->
-  <div id="resultado" class="search-result"></div>
-
-  <script>
-    let bibliaTexto = '';
-
-    // Carrega o arquivo biblia.txt
-    fetch('biblia.txt')
-      .then(response => response.text())
-      .then(data => { bibliaTexto = data; })
-      .catch(err => {
-        document.getElementById('resultado').innerText = 'Erro ao carregar o arquivo biblia.txt';
-        console.error(err);
-      });
-
-    function buscar() {
-      const termo = document.getElementById('searchInput').value.toLowerCase();
-      const resultadoDiv = document.getElementById('resultado');
-
-      if (!termo) {
-        resultadoDiv.innerHTML = 'Digite uma palavra ou versículo.';
-        return;
-      }
-
-      const linhas = bibliaTexto.split('\n');
-      const resultados = linhas.filter(linha => linha.toLowerCase().includes(termo));
-
-      if (resultados.length > 0) {
-        const regex = new RegExp(`(${termo})`, 'gi');
-        const destacados = resultados.map(linha => linha.replace(regex, '<mark>$1</mark>'));
-        resultadoDiv.innerHTML = destacados.join('<br><br>');
-      } else {
-        resultadoDiv.innerHTML = 'Nenhum resultado encontrado.';
-      }
-    }
-
-    function lerSelecionado() {
-      const selecionado = window.getSelection().toString().trim();
-      if (!selecionado) {
-        alert('Por favor, selecione um trecho do texto para ler.');
-        return;
-      }
-
-      const rate = parseFloat(document.getElementById('speed').value);
-      const utterance = new SpeechSynthesisUtterance(selecionado);
-      utterance.lang = 'pt-BR';
-      utterance.rate = rate;
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function pausar() { 
-      window.speechSynthesis.cancel(); 
-    }
-
-    const speedInput = document.getElementById('speed');
-    const speedValue = document.getElementById('speedValue');
-    speedInput.addEventListener('input', () => { 
-      speedValue.innerText = speedInput.value + 'x'; 
-    });
-  </script>
 </body>
-</html>
