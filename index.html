@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Índice</title>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,9 +15,7 @@
       flex-direction: column;
       align-items: center;
     }
-
     h1 { margin: 20px; }
-
     img {
       width: 90px;
       height: auto;
@@ -26,46 +23,6 @@
       display: block;
       border-radius: 6px;
     }
-
-    /* Controles de leitura */
-    .controls-top {
-      text-align: center;
-      margin-bottom: 20px;
-      background: #fff;
-      padding: 10px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 800px;
-    }
-
-    button {
-      padding: 8px 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #000;
-      color: #fff;
-      transition: background 0.3s;
-    }
-    button:hover { background: #444; }
-
-    .slider-container {
-      margin-top: 10px;
-      text-align: center;
-    }
-    .slider-container label {
-      font-size: 14px;
-      display: block;
-      margin-bottom: 5px;
-    }
-    .slider-container input {
-      width: 200px;
-    }
-
     /* Abas */
     .tabs {
       display: flex;
@@ -76,7 +33,6 @@
       width: 100%;
       max-width: 600px;
     }
-
     .tab-button {
       flex: 1;
       padding: 12px;
@@ -90,14 +46,12 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
     }
-
     .tab-button:hover { background: #ddd; }
     .tab-button.active {
       background: #000;
       color: #fff;
       transform: scale(1.05);
     }
-
     /* Conteúdo */
     .tab-content {
       display: none;
@@ -110,17 +64,10 @@
       animation: fadeIn 0.3s ease-in;
     }
     .tab-content.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     h2 { font-size: 1.4em; margin-bottom: 10px; }
-
     ul { list-style: none; padding: 0; }
     li { margin: 10px 0; }
-
     a {
       text-decoration: none;
       color: #000;
@@ -133,12 +80,36 @@
     }
     a:hover { background: #f0f0f0; color: #333; }
 
+    /* Capítulo do dia */
     #versiculoTexto {
       font-size: 20px;
       font-style: italic;
       text-align: center;
       margin-top: 20px;
     }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .controls button {
+      padding: 8px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #000;
+      color: #fff;
+      transition: 0.2s;
+    }
+    .controls button:hover { background: #333; }
+
+    .slider-container {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    #velocidade { width: 200px; }
 
     @media (max-width: 600px) {
       body { padding: 10px; }
@@ -148,18 +119,6 @@
   </style>
 </head>
 <body>
-  <!-- Controles no topo -->
-  <div class="controls-top">
-    <button onclick="lerVersiculo()">▶️ Ler em voz alta</button>
-    <button onclick="pararLeitura()">⏹️ Parar</button>
-
-    <div class="slider-container">
-      <label for="velocidade">Velocidade da leitura:</label>
-      <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
-      <span id="velocidadeValor">1x</span>
-    </div>
-  </div>
-
   <img src="cast.png" alt="Logo KingCast">
   <h1>Índice</h1>
 
@@ -200,6 +159,20 @@
 
   <div id="versiculo" class="tab-content">
     <h2>📖 Capítulo do Dia</h2>
+
+    <!-- Controles de leitura -->
+    <div class="controls">
+      <button onclick="lerVersiculo()">▶️ Ler em voz alta</button>
+      <button onclick="pararLeitura()">⏹️ Parar</button>
+
+      <div class="slider-container">
+        <label for="velocidade">Velocidade da leitura:</label>
+        <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
+        <span id="velocidadeValor">1x</span>
+      </div>
+    </div>
+
+    <!-- Texto do versículo -->
     <p id="versiculoTexto">Carregando...</p>
   </div>
 
@@ -227,17 +200,18 @@
         document.getElementById("versiculoTexto").textContent = "Erro ao carregar o versículo.";
       }
     }
-
     carregarVersiculo();
 
-    // ======= Leitura em voz alta =======
-    let utterance;
+    // Leitura em voz alta
     let synth = window.speechSynthesis;
+    let utterance;
 
     function lerVersiculo() {
-      pararLeitura();
       let texto = document.getElementById("versiculoTexto").textContent;
       let velocidade = parseFloat(document.getElementById("velocidade").value);
+
+      if (synth.speaking) synth.cancel();
+
       utterance = new SpeechSynthesisUtterance(texto);
       utterance.lang = "pt-BR";
       utterance.rate = velocidade;
@@ -245,12 +219,10 @@
     }
 
     function pararLeitura() {
-      if (synth.speaking) {
-        synth.cancel();
-      }
+      if (synth.speaking) synth.cancel();
     }
 
-    // Mostrar valor do slider
+    // Atualizar valor do slider
     document.getElementById("velocidade").addEventListener("input", function() {
       document.getElementById("velocidadeValor").textContent = this.value + "x";
     });
