@@ -27,27 +27,39 @@
       border-radius: 6px;
     }
 
-    /* Estilo das abas */
+    /* Abas modernas */
     .tabs {
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
       flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
     }
 
     .tab-button {
-      padding: 10px 20px;
-      background: #fff;
-      border: 2px solid #000;
-      border-radius: 8px;
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
       font-size: 16px;
       font-weight: bold;
+      color: #000;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .tab-button:hover {
+      background: #ddd;
     }
 
     .tab-button.active {
       background: #000;
       color: #fff;
+      transform: scale(1.05);
     }
 
     /* Conteúdo das abas */
@@ -55,11 +67,15 @@
       display: none;
       width: 100%;
       max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease-in;
     }
 
     .tab-content.active {
       display: block;
-      animation: fadeIn 0.3s ease-in;
     }
 
     /* Animação suave */
@@ -86,18 +102,29 @@
       text-decoration: none;
       color: #000;
       font-size: 18px;
+      font-weight: bold;
+      display: block;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
     }
 
     a:hover {
+      background: #f0f0f0;
       color: #333;
     }
 
     /* Responsividade */
     @media (max-width: 600px) {
-      .tab-button {
-        flex: 1;
-        text-align: center;
+      body {
+        padding: 10px;
       }
+
+      .tab-button {
+        font-size: 14px;
+        padding: 10px;
+      }
+
       a {
         font-size: 16px;
       }
@@ -111,9 +138,9 @@
 
   <!-- Botões de abas -->
   <div class="tabs">
-    <button class="tab-button active" onclick="openTab('audios')">🎙️ Áudios</button>
-    <button class="tab-button" onclick="openTab('docs')">📄 Documentos</button>
-    <button class="tab-button" onclick="openTab('panoramas')">📊 Panoramas</button>
+    <button class="tab-button active" onclick="openTab('audios', event)">🎙️ Áudios</button>
+    <button class="tab-button" onclick="openTab('docs', event)">📄 Documentos</button>
+    <button class="tab-button" onclick="openTab('panoramas', event)">📊 Panoramas</button>
   </div>
 
   <!-- Conteúdo das abas -->
@@ -144,7 +171,7 @@
   </div>
 
   <script>
-    function openTab(tabId) {
+    function openTab(tabId, event) {
       // esconder todo o conteúdo
       document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
