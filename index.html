@@ -102,6 +102,39 @@
       margin-top: 20px;
     }
 
+    /* Controles de leitura */
+    .controls {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #000;
+      color: #fff;
+      transition: background 0.3s;
+    }
+    button:hover { background: #444; }
+
+    .slider-container {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .slider-container label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .slider-container input {
+      width: 200px;
+    }
+
     @media (max-width: 600px) {
       body { padding: 10px; }
       .tab-button { font-size: 14px; padding: 10px; }
@@ -151,6 +184,18 @@
   <div id="versiculo" class="tab-content">
     <h2>📖 Capítulo do Dia</h2>
     <p id="versiculoTexto">Carregando...</p>
+
+    <!-- Controles de leitura -->
+    <div class="controls">
+      <button onclick="lerVersiculo()">▶️ Ler em voz alta</button>
+      <button onclick="pararLeitura()">⏹️ Parar</button>
+    </div>
+
+    <div class="slider-container">
+      <label for="velocidade">Velocidade da leitura:</label>
+      <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
+      <span id="velocidadeValor">1x</span>
+    </div>
   </div>
 
   <script>
@@ -177,12 +222,36 @@
 
         document.getElementById("versiculoTexto").textContent = versiculos[index];
       } catch (e) {
-        document.getElementById("versiculoTexto").textContent =
-          "Erro ao carregar o versículo.";
+        document.getElementById("versiculoTexto").textContent = "Erro ao carregar o versículo.";
       }
     }
 
     carregarVersiculo();
+
+    // ======= Leitura em voz alta =======
+    let utterance;
+    let synth = window.speechSynthesis;
+
+    function lerVersiculo() {
+      pararLeitura(); // garante que não sobreponha leituras
+      let texto = document.getElementById("versiculoTexto").textContent;
+      let velocidade = parseFloat(document.getElementById("velocidade").value);
+      utterance = new SpeechSynthesisUtterance(texto);
+      utterance.lang = "pt-BR";
+      utterance.rate = velocidade;
+      synth.speak(utterance);
+    }
+
+    function pararLeitura() {
+      if (synth.speaking) {
+        synth.cancel();
+      }
+    }
+
+    // Mostrar valor do slider
+    document.getElementById("velocidade").addEventListener("input", function() {
+      document.getElementById("velocidadeValor").textContent = this.value + "x";
+    });
   </script>
 </body>
 </html>
