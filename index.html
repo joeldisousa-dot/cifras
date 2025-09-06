@@ -87,6 +87,11 @@
       text-align: center;
       margin-top: 20px;
     }
+    .highlight {
+      background: yellow;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
 
     .controls {
       text-align: center;
@@ -195,31 +200,50 @@
         let diaAno = Math.floor((hoje - new Date(hoje.getFullYear(), 0, 0)) / 86400000);
         let index = diaAno % versiculos.length;
 
-        document.getElementById("versiculoTexto").textContent = versiculos[index];
+        let versiculo = versiculos[index];
+        let palavras = versiculo.split(" ").map(p => `<span>${p}</span>`).join(" ");
+        document.getElementById("versiculoTexto").innerHTML = palavras;
       } catch (e) {
         document.getElementById("versiculoTexto").textContent = "Erro ao carregar o versículo.";
       }
     }
     carregarVersiculo();
 
-    // Leitura em voz alta
+    // Leitura em voz alta com destaque
     let synth = window.speechSynthesis;
     let utterance;
+    let interval;
+    let palavrasSpan = [];
 
     function lerVersiculo() {
-      let texto = document.getElementById("versiculoTexto").textContent;
+      pararLeitura(); // limpar se já houver leitura em andamento
+
+      let spans = document.querySelectorAll("#versiculoTexto span");
+      palavrasSpan = Array.from(spans).map(s => s.textContent);
       let velocidade = parseFloat(document.getElementById("velocidade").value);
 
-      if (synth.speaking) synth.cancel();
-
+      let texto = palavrasSpan.join(" ");
       utterance = new SpeechSynthesisUtterance(texto);
       utterance.lang = "pt-BR";
       utterance.rate = velocidade;
       synth.speak(utterance);
+
+      let i = 0;
+      interval = setInterval(() => {
+        spans.forEach(s => s.classList.remove("highlight"));
+        if (i < spans.length) {
+          spans[i].classList.add("highlight");
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 400 / velocidade); // velocidade ajusta tempo de destaque
     }
 
     function pararLeitura() {
       if (synth.speaking) synth.cancel();
+      clearInterval(interval);
+      document.querySelectorAll("#versiculoTexto span").forEach(s => s.classList.remove("highlight"));
     }
 
     // Atualizar valor do slider
