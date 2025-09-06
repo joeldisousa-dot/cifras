@@ -201,28 +201,26 @@
 
     let synth = window.speechSynthesis;
     let utterance;
+    let spans;
+    let currentWord = 0;
 
     function lerVersiculo() {
-      pararLeitura(); // limpa leitura anterior
-
-      let spans = document.querySelectorAll("#versiculoTexto span");
+      pararLeitura();
+      spans = document.querySelectorAll("#versiculoTexto span");
       let texto = Array.from(spans).map(s => s.textContent).join(" ");
 
       utterance = new SpeechSynthesisUtterance(texto);
       utterance.lang = "pt-BR";
       utterance.rate = parseFloat(document.getElementById("velocidade").value);
 
-      // Sincronizar destaque palavra a palavra
       utterance.onboundary = function(event) {
         if (event.name === "word" || event.name === undefined) {
           let charIndex = event.charIndex;
           let textoAntes = texto.substring(0, charIndex);
-          let palavraIndex = textoAntes.split(" ").length - 1;
+          currentWord = textoAntes.split(" ").length - 1;
 
           spans.forEach(s => s.classList.remove("highlight"));
-          if (spans[palavraIndex]) {
-            spans[palavraIndex].classList.add("highlight");
-          }
+          if (spans[currentWord]) spans[currentWord].classList.add("highlight");
         }
       };
 
@@ -231,8 +229,34 @@
 
     function pararLeitura() {
       if (synth.speaking) synth.cancel();
-      document.querySelectorAll("#versiculoTexto span").forEach(s => s.classList.remove("highlight"));
+      spans?.forEach(s => s.classList.remove("highlight"));
     }
+
+    // Velocidade em tempo real
+    document.getElementById("velocidade").addEventListener("input", () => {
+      if (!spans || !synth.speaking) return;
+
+      let novaVelocidade = parseFloat(document.getElementById("velocidade").value);
+      let textoRestante = Array.from(spans).slice(currentWord).map(s => s.textContent).join(" ");
+
+      pararLeitura();
+      utterance = new SpeechSynthesisUtterance(textoRestante);
+      utterance.lang = "pt-BR";
+      utterance.rate = novaVelocidade;
+
+      utterance.onboundary = function(event) {
+        if (event.name === "word" || event.name === undefined) {
+          let charIndex = event.charIndex;
+          let textoAntes = textoRestante.substring(0, charIndex);
+          currentWord += textoAntes.split(" ").length - 1;
+
+          spans.forEach(s => s.classList.remove("highlight"));
+          if (spans[currentWord]) spans[currentWord].classList.add("highlight");
+        }
+      };
+
+      synth.speak(utterance);
+    });
 
     carregarVersiculo();
   </script>
