@@ -70,10 +70,7 @@
     }
     .tab-content.active { display: block; }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
     h2 { font-size: 1.4em; margin-bottom: 10px; }
 
@@ -107,7 +104,7 @@
     }
 
     .controls {
-      margin-top: 15px;
+      margin-bottom: 15px;
       text-align: center;
     }
 
@@ -159,8 +156,8 @@
 
   <div id="versiculo" class="tab-content">
     <h2>📖 Capítulo do Dia</h2>
-    <p id="versiculoTexto">Carregando...</p>
 
+    <!-- Controles acima do versículo -->
     <div class="controls">
       <button onclick="lerVersiculo()">▶️ Ler</button>
       <button onclick="pararLeitura()">⏹️ Parar</button>
@@ -168,6 +165,9 @@
       <label for="velocidade">Velocidade:</label>
       <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
     </div>
+
+    <!-- Texto do versículo -->
+    <p id="versiculoTexto">Carregando...</p>
   </div>
 
   <script>
@@ -191,7 +191,6 @@
         );
         let index = diaAno % versiculos.length;
 
-        // Transformar em spans para destacar palavra por palavra
         let palavras = versiculos[index].split(" ");
         document.getElementById("versiculoTexto").innerHTML = palavras.map(p => `<span>${p}</span>`).join(" ");
       } catch (e) {
@@ -239,259 +238,3 @@
   </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Índice</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #A8D5BA;
-      color: #000;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 { margin: 20px; }
-    img {
-      width: 90px;
-      height: auto;
-      margin: 5px auto;
-      display: block;
-      border-radius: 6px;
-    }
-    /* Abas */
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      max-width: 600px;
-    }
-    .tab-button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      color: #000;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-    }
-    .tab-button:hover { background: #ddd; }
-    .tab-button.active {
-      background: #000;
-      color: #fff;
-      transform: scale(1.05);
-    }
-    /* Conteúdo */
-    .tab-content {
-      display: none;
-      width: 100%;
-      max-width: 800px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      animation: fadeIn 0.3s ease-in;
-    }
-    .tab-content.active { display: block; }
-    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    h2 { font-size: 1.4em; margin-bottom: 10px; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 10px 0; }
-    a {
-      text-decoration: none;
-      color: #000;
-      font-size: 18px;
-      font-weight: bold;
-      display: block;
-      padding: 8px;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-    a:hover { background: #f0f0f0; color: #333; }
-
-    /* Capítulo do dia */
-    #versiculoTexto {
-      font-size: 20px;
-      font-style: italic;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .highlight {
-      background: yellow;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-
-    .controls {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .controls button {
-      padding: 8px 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      background: #000;
-      color: #fff;
-      transition: 0.2s;
-    }
-    .controls button:hover { background: #333; }
-
-    .slider-container {
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    #velocidade { width: 200px; }
-
-    @media (max-width: 600px) {
-      body { padding: 10px; }
-      .tab-button { font-size: 14px; padding: 10px; }
-      a { font-size: 16px; }
-    }
-  </style>
-</head>
-<body>
-  <img src="cast.png" alt="Logo KingCast">
-  <h1>Índice</h1>
-
-  <!-- Abas -->
-  <div class="tabs">
-    <button class="tab-button active" onclick="openTab('audios', event)">🎙️ Áudios</button>
-    <button class="tab-button" onclick="openTab('docs', event)">📄 Documentos</button>
-    <button class="tab-button" onclick="openTab('panoramas', event)">📊 Panoramas</button>
-    <button class="tab-button" onclick="openTab('versiculo', event)">📖 Capítulo do Dia</button>
-  </div>
-
-  <!-- Conteúdos -->
-  <div id="audios" class="tab-content active">
-    <h2>🎙️ Áudios</h2>
-    <ul>
-      <li><a href="Criação/index.html">🗂️ Criação</a></li>
-      <li><a href="Deus/index.html">🗂️ Deus</a></li>
-      <li><a href="Espirito_Santo/index.html">🗂️ Espírito Santo</a></li>
-      <li><a href="Jesus/index.html">🗂️ Jesus</a></li>
-      <li><a href="Salvação/index.html">🗂️ Salvação</a></li>
-    </ul>
-  </div>
-
-  <div id="docs" class="tab-content">
-    <h2>📄 Documentos</h2>
-    <ul>
-      <li><a href="Material_para_estudo/index.html">🗂️ Material para estudo</a></li>
-    </ul>
-  </div>
-
-  <div id="panoramas" class="tab-content">
-    <h2>📊 Panoramas</h2>
-    <ul>
-      <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealógica de Jesus</a></li>
-      <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
-    </ul>
-  </div>
-
-  <div id="versiculo" class="tab-content">
-    <h2>📖 Capítulo do Dia</h2>
-
-    <!-- Controles de leitura -->
-    <div class="controls">
-      <button onclick="lerVersiculo()">▶️ Ler em voz alta</button>
-      <button onclick="pararLeitura()">⏹️ Parar</button>
-
-      <div class="slider-container">
-        <label for="velocidade">Velocidade da leitura:</label>
-        <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
-        <span id="velocidadeValor">1x</span>
-      </div>
-    </div>
-
-    <!-- Texto do versículo -->
-    <p id="versiculoTexto">Carregando...</p>
-  </div>
-
-  <script>
-    function openTab(tabId, event) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
-
-    // Carregar Biblia.txt e mostrar versículo do dia
-    async function carregarVersiculo() {
-      try {
-        let response = await fetch("Biblia.txt");
-        let texto = await response.text();
-        let versiculos = texto.split("\n").filter(l => l.trim() !== "");
-
-        let hoje = new Date();
-        let diaAno = Math.floor((hoje - new Date(hoje.getFullYear(), 0, 0)) / 86400000);
-        let index = diaAno % versiculos.length;
-
-        let versiculo = versiculos[index];
-        let palavras = versiculo.split(" ").map(p => `<span>${p}</span>`).join(" ");
-        document.getElementById("versiculoTexto").innerHTML = palavras;
-      } catch (e) {
-        document.getElementById("versiculoTexto").textContent = "Erro ao carregar o versículo.";
-      }
-    }
-    carregarVersiculo();
-
-    // Leitura em voz alta com destaque
-    let synth = window.speechSynthesis;
-    let utterance;
-    let interval;
-    let palavrasSpan = [];
-
-    function lerVersiculo() {
-      pararLeitura(); // limpar se já houver leitura em andamento
-
-      let spans = document.querySelectorAll("#versiculoTexto span");
-      palavrasSpan = Array.from(spans).map(s => s.textContent);
-      let velocidade = parseFloat(document.getElementById("velocidade").value);
-
-      let texto = palavrasSpan.join(" ");
-      utterance = new SpeechSynthesisUtterance(texto);
-      utterance.lang = "pt-BR";
-      utterance.rate = velocidade;
-      synth.speak(utterance);
-
-      let i = 0;
-      interval = setInterval(() => {
-        spans.forEach(s => s.classList.remove("highlight"));
-        if (i < spans.length) {
-          spans[i].classList.add("highlight");
-          i++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 400 / velocidade); // velocidade ajusta tempo de destaque
-    }
-
-    function pararLeitura() {
-      if (synth.speaking) synth.cancel();
-      clearInterval(interval);
-      document.querySelectorAll("#versiculoTexto span").forEach(s => s.classList.remove("highlight"));
-    }
-
-    // Atualizar valor do slider
-    document.getElementById("velocidade").addEventListener("input", function() {
-      document.getElementById("velocidadeValor").textContent = this.value + "x";
-    });
-  </script>
-</body>
-</html>
-
