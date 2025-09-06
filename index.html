@@ -1,87 +1,118 @@
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #A8D5BA; /* verde-água suave */
-    color: #000;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Índice</title>
 
-  h1 { margin: 20px; color: #000; }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #A8D5BA; /* verde-água suave */
+      color: #000;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  h2 { 
-    font-size: 1.5em; 
-    color: #000; 
-    margin-bottom: 10px; 
-     /*text-decoration: underline; /* sublinhado */
-  }
+    h1 { 
+      margin: 20px; 
+      color: #000; 
+    }
 
-  /* Linha separadora abaixo dos títulos */
-  .menu-section hr {
-    border: none;
-    border-top: 2px solid #000;
-    width: 100%;
-    margin: 5px 0 15px 0;
-  }
+    h2 { 
+      font-size: 1.5em; 
+      color: #000; 
+      margin-bottom: 10px; 
+    }
 
-img {
-  width: 90px;   /* metade do tamanho original (≈ 300px/2) */
-  height: auto;   /* mantém a proporção */
-  margin: 5px auto;
-  display: block;
-  border-radius: 6px;
-  
-  /* Layout em colunas */
-  .menu-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px; /* espaço entre colunas */
-    margin-top: 30px;
-    flex-wrap: wrap;
-    width: 100%;
-    max-width: 1200px;
-  }
+    /* Linha separadora abaixo dos títulos */
+    .menu-section hr {
+      border: none;
+      border-top: 2px solid #000;
+      width: 100%;
+      margin: 5px 0 15px 0;
+    }
 
-  .menu-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    min-width: 200px;
-  }
+    img {
+      width: 90px;
+      height: auto;
+      margin: 5px auto;
+      display: block;
+      border-radius: 6px;
+    }
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+    .menu-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1200px;
+    }
 
-  li {
-    margin: 10px 0;
-  }
+    .menu-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 200px;
+      flex: 1;
+    }
 
-  a {
-    text-decoration: none;
-    color: #000;
-    font-size: 20px;
-  }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-  a:hover {
-    color: #333;
-  }
-</style>
+    li {
+      margin: 10px 0;
+    }
 
+    a {
+      text-decoration: none;
+      color: #000;
+      font-size: 18px;
+    }
+
+    a:hover {
+      color: #333;
+    }
+
+    /* Responsividade: telas menores que 600px */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .menu-container {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+      }
+
+      .menu-section {
+        min-width: 100%;
+      }
+
+      a {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
 <body>
   <img src="cast.png" alt="Logo KingCast">
 
-  <h1> Índice</h1>
+  <h1>Índice</h1>
 
   <!-- Menus organizados em colunas -->
   <div class="menu-container">
     <div class="menu-section">
-      <h2>🎙️Áudios</h2>
+      <h2>🎙️ Áudios</h2>
       <hr>
       <ul>
         <li><a href="Criação/index.html">✅ Criação</a></li>
@@ -89,7 +120,6 @@ img {
         <li><a href="Espirito_Santo/index.html">✅ Espírito Santo</a></li>
         <li><a href="Jesus/index.html">✅ Jesus</a></li>
         <li><a href="Salvação/index.html">✅ Salvação</a></li>
-        
       </ul>
     </div>
 
@@ -107,22 +137,8 @@ img {
       <ul>
         <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealógica de Jesus</a></li>
         <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
-        
       </ul>
     </div>
   </div>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html>
