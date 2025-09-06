@@ -17,24 +17,7 @@
       align-items: center;
     }
 
-    h1 { 
-      margin: 20px; 
-      color: #000; 
-    }
-
-    h2 { 
-      font-size: 1.5em; 
-      color: #000; 
-      margin-bottom: 10px; 
-    }
-
-    /* Linha separadora abaixo dos títulos */
-    .menu-section hr {
-      border: none;
-      border-top: 2px solid #000;
-      width: 100%;
-      margin: 5px 0 15px 0;
-    }
+    h1 { margin: 20px; }
 
     img {
       width: 90px;
@@ -44,28 +27,55 @@
       border-radius: 6px;
     }
 
-    .menu-container {
+    /* Estilo das abas */
+    .tabs {
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 30px;
+      gap: 10px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
-      width: 100%;
-      max-width: 1200px;
     }
 
-    .menu-section {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      min-width: 200px;
-      flex: 1;
+    .tab-button {
+      padding: 10px 20px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .tab-button.active {
+      background: #000;
+      color: #fff;
+    }
+
+    /* Conteúdo das abas */
+    .tab-content {
+      display: none;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    /* Animação suave */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    h2 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
     }
 
     ul {
       list-style: none;
       padding: 0;
-      margin: 0;
     }
 
     li {
@@ -82,22 +92,12 @@
       color: #333;
     }
 
-    /* Responsividade: telas menores que 600px */
+    /* Responsividade */
     @media (max-width: 600px) {
-      body {
-        padding: 10px;
+      .tab-button {
+        flex: 1;
+        text-align: center;
       }
-
-      .menu-container {
-        flex-direction: column;
-        gap: 20px;
-        align-items: stretch;
-      }
-
-      .menu-section {
-        min-width: 100%;
-      }
-
       a {
         font-size: 16px;
       }
@@ -109,36 +109,56 @@
 
   <h1>Índice</h1>
 
-  <!-- Menus organizados em colunas -->
-  <div class="menu-container">
-    <div class="menu-section">
-      <h2>🎙️ Áudios</h2>
-      <hr>
-      <ul>
-        <li><a href="Criação/index.html">✅ Criação</a></li>
-        <li><a href="Deus/index.html">✅ Deus</a></li>
-        <li><a href="Espirito_Santo/index.html">✅ Espírito Santo</a></li>
-        <li><a href="Jesus/index.html">✅ Jesus</a></li>
-        <li><a href="Salvação/index.html">✅ Salvação</a></li>
-      </ul>
-    </div>
-
-    <div class="menu-section">
-      <h2>📄 Documentos</h2>
-      <hr>
-      <ul>
-        <li><a href="Material_para_estudo/index.html">🗂️ Material para estudo</a></li>
-      </ul>
-    </div>
-
-    <div class="menu-section">
-      <h2>📊 Panoramas</h2>
-      <hr>
-      <ul>
-        <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealógica de Jesus</a></li>
-        <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
-      </ul>
-    </div>
+  <!-- Botões de abas -->
+  <div class="tabs">
+    <button class="tab-button active" onclick="openTab('audios')">🎙️ Áudios</button>
+    <button class="tab-button" onclick="openTab('docs')">📄 Documentos</button>
+    <button class="tab-button" onclick="openTab('panoramas')">📊 Panoramas</button>
   </div>
+
+  <!-- Conteúdo das abas -->
+  <div id="audios" class="tab-content active">
+    <h2>🎙️ Áudios</h2>
+    <ul>
+      <li><a href="Criação/index.html">✅ Criação</a></li>
+      <li><a href="Deus/index.html">✅ Deus</a></li>
+      <li><a href="Espirito_Santo/index.html">✅ Espírito Santo</a></li>
+      <li><a href="Jesus/index.html">✅ Jesus</a></li>
+      <li><a href="Salvação/index.html">✅ Salvação</a></li>
+    </ul>
+  </div>
+
+  <div id="docs" class="tab-content">
+    <h2>📄 Documentos</h2>
+    <ul>
+      <li><a href="Material_para_estudo/index.html">🗂️ Material para estudo</a></li>
+    </ul>
+  </div>
+
+  <div id="panoramas" class="tab-content">
+    <h2>📊 Panoramas</h2>
+    <ul>
+      <li><a href="arvore_genealogica_jesus.html">🦚 Árvore genealógica de Jesus</a></li>
+      <li><a href="Panorama_biblico.html">🔍 Panorama bíblico</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function openTab(tabId) {
+      // esconder todo o conteúdo
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // desativar todos os botões
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // ativar a aba clicada
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 </body>
 </html>
