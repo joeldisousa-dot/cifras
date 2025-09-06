@@ -27,6 +27,45 @@
       border-radius: 6px;
     }
 
+    /* Controles de leitura */
+    .controls-top {
+      text-align: center;
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 800px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #000;
+      color: #fff;
+      transition: background 0.3s;
+    }
+    button:hover { background: #444; }
+
+    .slider-container {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .slider-container label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .slider-container input {
+      width: 200px;
+    }
+
     /* Abas */
     .tabs {
       display: flex;
@@ -94,45 +133,11 @@
     }
     a:hover { background: #f0f0f0; color: #333; }
 
-    /* Capítulo do dia */
     #versiculoTexto {
       font-size: 20px;
       font-style: italic;
       text-align: center;
       margin-top: 20px;
-    }
-
-    /* Controles de leitura */
-    .controls {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    button {
-      padding: 8px 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #000;
-      color: #fff;
-      transition: background 0.3s;
-    }
-    button:hover { background: #444; }
-
-    .slider-container {
-      margin-top: 10px;
-      text-align: center;
-    }
-    .slider-container label {
-      font-size: 14px;
-      display: block;
-      margin-bottom: 5px;
-    }
-    .slider-container input {
-      width: 200px;
     }
 
     @media (max-width: 600px) {
@@ -143,6 +148,18 @@
   </style>
 </head>
 <body>
+  <!-- Controles no topo -->
+  <div class="controls-top">
+    <button onclick="lerVersiculo()">▶️ Ler em voz alta</button>
+    <button onclick="pararLeitura()">⏹️ Parar</button>
+
+    <div class="slider-container">
+      <label for="velocidade">Velocidade da leitura:</label>
+      <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
+      <span id="velocidadeValor">1x</span>
+    </div>
+  </div>
+
   <img src="cast.png" alt="Logo KingCast">
   <h1>Índice</h1>
 
@@ -184,18 +201,6 @@
   <div id="versiculo" class="tab-content">
     <h2>📖 Capítulo do Dia</h2>
     <p id="versiculoTexto">Carregando...</p>
-
-    <!-- Controles de leitura -->
-    <div class="controls">
-      <button onclick="lerVersiculo()">▶️ Ler em voz alta</button>
-      <button onclick="pararLeitura()">⏹️ Parar</button>
-    </div>
-
-    <div class="slider-container">
-      <label for="velocidade">Velocidade da leitura:</label>
-      <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1">
-      <span id="velocidadeValor">1x</span>
-    </div>
   </div>
 
   <script>
@@ -213,11 +218,8 @@
         let texto = await response.text();
         let versiculos = texto.split("\n").filter(l => l.trim() !== "");
 
-        // usar dia do ano como índice fixo → sempre o mesmo versículo no mesmo dia
         let hoje = new Date();
-        let diaAno = Math.floor(
-          (hoje - new Date(hoje.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24
-        );
+        let diaAno = Math.floor((hoje - new Date(hoje.getFullYear(), 0, 0)) / 86400000);
         let index = diaAno % versiculos.length;
 
         document.getElementById("versiculoTexto").textContent = versiculos[index];
@@ -233,7 +235,7 @@
     let synth = window.speechSynthesis;
 
     function lerVersiculo() {
-      pararLeitura(); // garante que não sobreponha leituras
+      pararLeitura();
       let texto = document.getElementById("versiculoTexto").textContent;
       let velocidade = parseFloat(document.getElementById("velocidade").value);
       utterance = new SpeechSynthesisUtterance(texto);
